@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
+using Domain.Entities.Seguridad;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
 using Domain.Interfaces;
@@ -106,6 +107,39 @@ public class AppDbContext : DbContext, IDbContext
         }
     }
 
+    public T ExecuteScriptSQL<T>(string sql)
+    {
+        using (var cmd = this.Database.GetDbConnection().CreateCommand())
+        {
+            cmd.CommandText = sql;
+            if (cmd.Connection.State != ConnectionState.Open)
+                cmd.Connection.Open();
+
+            // cmd.Parameters.AddRange(Parameters); // Si tienes parámetros, agrégalos aquí.
+
+            using (var dataReader = cmd.ExecuteReader())
+            {
+                if (dataReader.Read())
+                {
+                    // Si la consulta devuelve una sola columna, retornamos directamente el valor
+                    if (typeof(T) != typeof(object) && dataReader.FieldCount == 1)
+                    {
+                        return (T)dataReader.GetValue(0); // Retornar como tipo genérico
+                    }
+
+                    // Si se espera más de un valor, podemos devolver un objeto dinámico
+                    var dataRow = GetDataRow(dataReader); // Método similar al que usaste arriba.
+                    return (T)(object)dataRow; // Convertir a dinámico
+                }
+                else
+                {
+                    return default; // Si no hay resultados
+                }
+            }
+        }
+    }
+
+
     private dynamic GetDataRow(DbDataReader dataReader)
     {
         var dataRow = new ExpandoObject() as IDictionary<string, object>;
@@ -117,5 +151,6 @@ public class AppDbContext : DbContext, IDbContext
 
     #region ENTIDADES
     public DbSet<WeatherForecast> WeatherForecasts { get; set; }
+    public DbSet<Usuario> Usuario { get; set; }
     #endregion
 }
