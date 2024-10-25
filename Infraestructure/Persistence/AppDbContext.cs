@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities.Seguridad;
+using Domain.Entities.Segurity;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
 using Domain.Interfaces;

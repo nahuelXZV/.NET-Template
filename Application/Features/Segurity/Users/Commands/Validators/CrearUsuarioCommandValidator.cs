@@ -1,7 +1,7 @@
-﻿using Application.Features.Seguridad.Usuario.Command;
+﻿using Application.Features.Segurity.Users.Command;
 using FluentValidation;
 
-namespace Application.Features.Seguridad.Usuario.Commands.Validators;
+namespace Application.Features.Segurity.Users.Commands.Validators;
 
 public class CrearUsuarioCommandValidator : AbstractValidator<CrearUsuarioCommand>
 {

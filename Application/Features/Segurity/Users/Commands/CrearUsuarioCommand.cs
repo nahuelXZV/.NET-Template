@@ -1,12 +1,12 @@
-﻿using Application.Features.Seguridad.Usuario.Queries;
-using Domain.DTOs.Seguridad.Request;
+﻿using Application.Features.Segurity.Users.Queries;
+using Domain.DTOs.Segurity.Request;
 using Domain.Common.Interfaces;
 using Application.Wrappers;
 using Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.Seguridad.Usuario.Command;
+namespace Application.Features.Segurity.Users.Command;
 public class CrearUsuarioCommand : ICommand<Response<long>>
 {
     public RequestRegisterDTO RequestRegisterDTO { get; set; }
@@ -34,8 +34,8 @@ public class CrearUsuarioCommandHandler : ICommandHandler<CrearUsuarioCommand, R
             var existEmail = (await _mediator.Send(new GetUsuarioByEmailQuery { Email = request.RequestRegisterDTO.Email })).Data;
             if (existEmail != null) throw new ArgumentException("El email ya se encuentra registrado.");
 
-            Domain.Entities.Seguridad.Usuario usuario = _mapper.Map<Domain.Entities.Seguridad.Usuario>(request.RequestRegisterDTO);
-            await dbContext.Set<Domain.Entities.Seguridad.Usuario>().AddAsync(usuario, cancellationToken);
+            Domain.Entities.Segurity.Usuario usuario = _mapper.Map<Domain.Entities.Segurity.Usuario>(request.RequestRegisterDTO);
+            await dbContext.Set<Domain.Entities.Segurity.Usuario>().AddAsync(usuario, cancellationToken);
             await dbContext.SaveChangesAsync(cancellationToken);
 
             return new Response<long>(usuario.Id);

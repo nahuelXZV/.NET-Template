@@ -1,4 +1,4 @@
-﻿namespace Domain.DTOs.Seguridad.request;
+﻿namespace Domain.DTOs.Segurity.request;
 
 public class RequestLoginDTO
 {

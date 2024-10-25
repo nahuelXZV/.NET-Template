@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Domain.DTOs.Seguridad;
+using Domain.DTOs.Segurity;
 using Application.Wrappers;
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Features.Seguridad.Usuario.Queries;
+namespace Application.Features.Segurity.Users.Queries;
 
 public class GetUsuarioByLoginQuery : IRequest<Response<UsuarioDTO>>
 {
@@ -30,7 +30,7 @@ public class GetUsuarioByLoginQueryHandler : IRequestHandler<GetUsuarioByLoginQu
             string email = request.Email;
             string password = request.Password;
 
-            var usuarioRequest = await dbContext.Set<Domain.Entities.Seguridad.Usuario>()
+            var usuarioRequest = await dbContext.Set<Domain.Entities.Segurity.Usuario>()
                                         .Where(u => u.Email == email && u.Password == password)
                                         .Select(u => new UsuarioDTO
                                         {

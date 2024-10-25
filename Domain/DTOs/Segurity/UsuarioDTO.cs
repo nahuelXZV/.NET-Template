@@ -1,12 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Entities.Seguridad;
-
-[Table("usuario", Schema = "Seguridad")]
-public class Usuario
+﻿namespace Domain.DTOs.Segurity;
+public class UsuarioDTO
 {
-    [Key]
     public long Id { get; set; }
     public string Nombre { get; set; }
     public string Apellido { get; set; }

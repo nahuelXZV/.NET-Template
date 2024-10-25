@@ -1,14 +1,14 @@
-﻿using Application.Features.Seguridad.Usuario.Queries;
-using Application.Features.Seguridad.Usuario.Command;
-using Domain.DTOs.Seguridad.request;
-using Domain.DTOs.Seguridad.Request;
+﻿using Application.Features.Segurity.Users.Queries;
+using Application.Features.Segurity.Users.Command;
+using Domain.DTOs.Segurity.request;
+using Domain.DTOs.Segurity.Request;
 using Microsoft.AspNetCore.Mvc;
-using Domain.DTOs.Seguridad;
+using Domain.DTOs.Segurity;
 using Application.Wrappers;
 using WebApi.Services;
 using Domain.Config;
 
-namespace WebApi.Controllers.Seguridad;
+namespace WebApi.Controllers.Segurity;
 
 [ApiController]
 [Route("[controller]")]
