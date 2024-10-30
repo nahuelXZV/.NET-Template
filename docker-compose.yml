@@ -1,0 +1,15 @@
+services:
+  webapi:
+    image: webapi
+    build:
+      context: .
+      dockerfile: Dockerfile.api 
+    ports:
+      - "8081:8081"
+  webclient:
+    image: webclient
+    build:
+      context: .
+      dockerfile: Dockerfile.web 
+    ports:
+      - "8082:8082"

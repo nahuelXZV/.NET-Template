@@ -1,0 +1,40 @@
+# Etapa base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-windowsservercore-ltsc2019 AS base
+WORKDIR /app
+EXPOSE 8082
+
+# Etapa de construcción
+FROM mcr.microsoft.com/dotnet/sdk:6.0-windowsservercore-ltsc2019 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+
+# Limpia el caché de paquetes de NuGet
+RUN dotnet nuget locals all --clear
+
+# Copiar los archivos de proyecto de la API y las bibliotecas
+COPY ["WebClient/WebClient.csproj", "WebClient/"]
+COPY ["Application/Application.csproj", "Application/"]
+COPY ["Domain/Domain.csproj", "Domain/"]
+COPY ["Infraestructure/Infraestructure.csproj", "Infraestructure/"]
+
+# Restaurar dependencias para todos los proyectos
+RUN dotnet restore "WebClient/WebClient.csproj"
+
+# Copiar todo el código fuente
+COPY . .
+
+# Compilar el proyecto principal
+WORKDIR "/src/WebClient"
+RUN dotnet build "WebClient.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Etapa de publicación
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "WebClient.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# Imagen final
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ENTRYPOINT ["dotnet", "WebClient.dll"]
