@@ -1,7 +1,6 @@
-﻿using Domain.Interfaces;
-using MediatR;
+﻿using MediatR;
 
-namespace Domain.Common.Interfaces;
+namespace Domain.Interfaces;
 public interface ICommandHandler<in TCommand, TResponse> : IRequestHandler<TCommand, TResponse> where TCommand : ICommand<TResponse>
 {
 }

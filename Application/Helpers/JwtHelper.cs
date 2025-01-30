@@ -5,9 +5,9 @@ using Domain.DTOs.Segurity;
 using System.Text;
 using Domain.Config;
 
-namespace WebApi.Services;
+namespace Application.Helpers;
 
-public class JwtService
+public class JwtHelper
 {
     public static string GenerateJwtToken(UsuarioDTO usuario, JwtConfig jwtConfig)
     {

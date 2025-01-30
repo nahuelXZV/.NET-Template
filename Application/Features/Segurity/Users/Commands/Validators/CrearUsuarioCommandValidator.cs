@@ -1,5 +1,4 @@
-﻿using Application.Features.Segurity.Users.Command;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Application.Features.Segurity.Users.Commands.Validators;
 

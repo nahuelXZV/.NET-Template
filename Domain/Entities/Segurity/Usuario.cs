@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+using Domain.Common;
 
 namespace Domain.Entities.Segurity;
 
 [Table("usuario", Schema = "Seguridad")]
-public class Usuario
+public class Usuario : Entity
 {
-    [Key]
-    public long Id { get; set; }
     public string Nombre { get; set; }
     public string Apellido { get; set; }
     public string Email { get; set; }

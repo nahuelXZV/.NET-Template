@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Exceptions;
+using Domain.Interfaces;
 
 namespace Application.Wrappers;
 
@@ -7,7 +8,7 @@ public class Response<T> : IResponse
     public bool Succeded { get; set; }
     public string Message { get; set; }
     public string ClientMessage { get; set; }
-    public IDictionary<string, string[]> Errors { get; set; }
+    public MessageError Errors { get; set; }
     public T Data { get; set; }
 
     public Response() { }

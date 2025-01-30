@@ -11,7 +11,7 @@ using System.Data;
 
 namespace Infraestructure.Persistence;
 
-public class AppDbContext : DbContext, IDbContext
+public class AppDbContext : DbContext, IDbContext, IUnitOfWork
 {
     private IDbContextTransaction _currentTransaction;
     public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
@@ -23,7 +23,11 @@ public class AppDbContext : DbContext, IDbContext
     {
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
-
+    public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
+    {
+        var result = await base.SaveChangesAsync(cancellationToken);
+        return true;
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -95,7 +99,6 @@ public class AppDbContext : DbContext, IDbContext
         {
             cmd.CommandText = Sql;
             if (cmd.Connection.State != ConnectionState.Open) cmd.Connection.Open();
-            //cmd.Parameters.AddRange(Parameters);
             using (var dataReader = cmd.ExecuteReader())
             {
                 while (dataReader.Read())
@@ -115,30 +118,25 @@ public class AppDbContext : DbContext, IDbContext
             if (cmd.Connection.State != ConnectionState.Open)
                 cmd.Connection.Open();
 
-            // cmd.Parameters.AddRange(Parameters); // Si tienes parámetros, agrégalos aquí.
-
             using (var dataReader = cmd.ExecuteReader())
             {
                 if (dataReader.Read())
                 {
-                    // Si la consulta devuelve una sola columna, retornamos directamente el valor
                     if (typeof(T) != typeof(object) && dataReader.FieldCount == 1)
                     {
-                        return (T)dataReader.GetValue(0); // Retornar como tipo genérico
+                        return (T)dataReader.GetValue(0);
                     }
 
-                    // Si se espera más de un valor, podemos devolver un objeto dinámico
-                    var dataRow = GetDataRow(dataReader); // Método similar al que usaste arriba.
-                    return (T)(object)dataRow; // Convertir a dinámico
+                    var dataRow = GetDataRow(dataReader);
+                    return (T)(object)dataRow;
                 }
                 else
                 {
-                    return default; // Si no hay resultados
+                    return default;
                 }
             }
         }
     }
-
 
     private dynamic GetDataRow(DbDataReader dataReader)
     {

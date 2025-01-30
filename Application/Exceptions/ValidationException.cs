@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace Application.Common.Exceptions;
+namespace Application.Exceptions;
 public class ValidationException : Exception
 {
     public IDictionary<string, string[]> Errors { get; }
@@ -10,7 +10,7 @@ public class ValidationException : Exception
         Errors = new Dictionary<string, string[]>();
     }
 
-    public ValidationException(IEnumerable<ValidationFailure> failures) : this()
+    public ValidationException(IEnumerable<ValidationFailure> failures, List<ValidationFailure> failures1) : this()
     {
         Errors = failures
             .GroupBy(e => e.PropertyName, e => e.ErrorMessage)

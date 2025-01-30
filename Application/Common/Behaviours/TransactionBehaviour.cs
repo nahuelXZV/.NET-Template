@@ -3,8 +3,7 @@ using MediatR;
 
 namespace Application.Common.Behaviours;
 
-public class TransactionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-                                                         where TRequest : class, ICommand<TResponse>
+public class TransactionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand<TResponse>
 {
     private readonly IDbContext _appCnx;
 

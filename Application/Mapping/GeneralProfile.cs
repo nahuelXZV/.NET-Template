@@ -1,7 +1,6 @@
-﻿
-using AutoMapper;
-using Domain.DTOs.Segurity.Request;
+﻿using Domain.DTOs.Segurity.Request;
 using Domain.Entities.Segurity;
+using AutoMapper;
 
 namespace Application.Mapping;
 

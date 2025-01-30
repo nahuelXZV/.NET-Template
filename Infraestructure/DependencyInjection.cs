@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Infraestructure.Repositories;
 using Infraestructure.Persistence;
 using Domain.Interfaces;
 
@@ -15,5 +16,7 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("ApplicationDbContext"));
         });
         services.AddScoped<IDbContext, AppDbContext>();
+        services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
+
     }
 }

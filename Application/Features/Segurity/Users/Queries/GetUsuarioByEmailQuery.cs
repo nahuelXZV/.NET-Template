@@ -33,6 +33,7 @@ public class GetUsuarioByEmailQueryHandler : IRequestHandler<GetUsuarioByEmailQu
                                             Id = u.Id,
                                             Nombre = u.Nombre,
                                             Apellido = u.Apellido,
+                                            Password = u.Password,
                                             Email = u.Email,
                                             Rol = u.Rol
                                         })

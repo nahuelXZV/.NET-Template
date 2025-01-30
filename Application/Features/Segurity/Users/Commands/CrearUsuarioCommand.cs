@@ -1,44 +1,45 @@
 ﻿using Application.Features.Segurity.Users.Queries;
 using Domain.DTOs.Segurity.Request;
-using Domain.Common.Interfaces;
+using Domain.Entities.Segurity;
 using Application.Wrappers;
+using Application.Helpers;
 using Domain.Interfaces;
 using AutoMapper;
 using MediatR;
 
-namespace Application.Features.Segurity.Users.Command;
-public class CrearUsuarioCommand : ICommand<Response<long>>
+namespace Application.Features.Segurity.Users.Commands;
+public class CrearUsuarioCommand : ICommand<Response<bool>>
 {
-    public RequestRegisterDTO RequestRegisterDTO { get; set; }
+    public required RequestRegisterDTO RequestRegisterDTO { get; set; }
 }
 
-public class CrearUsuarioCommandHandler : ICommandHandler<CrearUsuarioCommand, Response<long>>
+public class CrearUsuarioCommandHandler : ICommandHandler<CrearUsuarioCommand, Response<bool>>
 {
-    private readonly IDbContext _appCnx;
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
+    private readonly IRepository<Usuario> _repository;
 
-    public CrearUsuarioCommandHandler(IDbContext appDbContext, IMediator mediator, IMapper mapper)
+    public CrearUsuarioCommandHandler(IMediator mediator, IMapper mapper, IRepository<Usuario> repository)
     {
-        _appCnx = appDbContext;
         _mediator = mediator;
         _mapper = mapper;
+        _repository = repository;
     }
 
-    public async Task<Response<long>> Handle(CrearUsuarioCommand request, CancellationToken cancellationToken)
+    public async Task<Response<bool>> Handle(CrearUsuarioCommand request, CancellationToken cancellationToken)
     {
         try
         {
-            var dbContext = _appCnx.dbContext;
-
             var existEmail = (await _mediator.Send(new GetUsuarioByEmailQuery { Email = request.RequestRegisterDTO.Email })).Data;
             if (existEmail != null) throw new ArgumentException("El email ya se encuentra registrado.");
 
-            Domain.Entities.Segurity.Usuario usuario = _mapper.Map<Domain.Entities.Segurity.Usuario>(request.RequestRegisterDTO);
-            await dbContext.Set<Domain.Entities.Segurity.Usuario>().AddAsync(usuario, cancellationToken);
-            await dbContext.SaveChangesAsync(cancellationToken);
+            string passwordHashed = PasswordHasherHelper.HashPassword(request.RequestRegisterDTO.Email, request.RequestRegisterDTO.Password);
+            request.RequestRegisterDTO.Password = passwordHashed;
+            Usuario usuario = _mapper.Map<Usuario>(request.RequestRegisterDTO);
+            await _repository.AddAsync(usuario);
+            await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-            return new Response<long>(usuario.Id);
+            return new Response<bool>(true);
         }
         catch (Exception ex)
         {
