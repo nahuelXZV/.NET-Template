@@ -1,14 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Domain.Common;
+﻿using Domain.Common;
 
 namespace Domain.Entities.Segurity;
 
-[Table("usuario", Schema = "Seguridad")]
 public class Usuario : Entity
 {
+    public string Username { get; set; }
     public string Nombre { get; set; }
     public string Apellido { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
-    public string Rol { get; set; }
+    public DateTime FechaCreacion { get; set; }
+    public long PerfilId { get; set; }
+
+    public Perfil Perfil { get; set; }
 }

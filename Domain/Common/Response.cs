@@ -24,12 +24,13 @@ public class Response<T> : IResponse
     {
         Succeded = false;
         Message = message;
+        Errors = new MessageError(message);
     }
 
-    public Response(Exception Exception)
+    public Response(Exception exception)
     {
         Succeded = false;
-        Message = Exception.Message;
+        Errors = new MessageError(exception.Message);
     }
 
 

@@ -51,19 +51,19 @@ public class ErrorHandlerMiddleware
 
         switch (exception)
         {
-            //case CinemaCmsServiceException ex:
-            //    clientErrorMessage = ex.Message;
-            //    response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //    break;
-            //case CinemaCmsResourceNotFoundException ex:
-            //    clientErrorMessage = ex.Message;
-            //    errorMessage = $"{nameof(CinemaCmsResourceNotFoundException)}: {ex.Message} - Fuente: [{ex.Source}]";
-            //    response.StatusCode = (int)HttpStatusCode.NotFound;
-            //    break;
-            //case CinemaCmsDomainException ex:
-            //    clientErrorMessage = exception.Message;
-            //    response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            //    break;
+            case ServiceException ex:
+                clientErrorMessage = ex.Message;
+                response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                break;
+            case ResourceNotFoundException ex:
+                clientErrorMessage = ex.Message;
+                errorMessage = $"{nameof(ResourceNotFoundException)}: {ex.Message} - Fuente: [{ex.Source}]";
+                response.StatusCode = (int)HttpStatusCode.NotFound;
+                break;
+            case DomainException ex:
+                clientErrorMessage = exception.Message;
+                response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                break;
             case TimeoutException ex:
                 clientErrorMessage = "El servidor no respondió a tiempo";
                 response.StatusCode = (int)HttpStatusCode.GatewayTimeout;

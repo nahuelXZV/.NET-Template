@@ -14,9 +14,10 @@ public class JwtHelper
         var claims = new[] {
                         new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                        new Claim(ClaimTypes.Role, usuario.Rol),
+                        //new Claim(ClaimTypes.Role, usuario.Rol),
                         new Claim("Name", usuario.Nombre + " " + usuario.Apellido),
-                        new Claim("Email", usuario.Email)
+                        new Claim("Email", usuario.Email),
+                        new Claim("Usuario", usuario.Username)
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig.Key));

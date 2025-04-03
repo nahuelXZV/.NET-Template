@@ -2,40 +2,40 @@
 
 namespace Domain.Exceptions;
 [Serializable]
-public class CinemaCmsServiceException : Exception
+public class ServiceException : Exception
 {
     public MessageError Error { get; set; }
 
 
-    public CinemaCmsServiceException()
+    public ServiceException()
     {
     }
 
-    public CinemaCmsServiceException(string message) : base(message)
+    public ServiceException(string message) : base(message)
     {
         Error = new MessageError(message);
     }
 
-    public CinemaCmsServiceException(string message, Exception innerException) : base(message, innerException)
+    public ServiceException(string message, Exception innerException) : base(message, innerException)
     {
         Error = new MessageError(message);
         var errorDetail = new MessageError(innerException.Message, innerException.Message, innerException.StackTrace);
         Error.ErrorDetails.Add(innerException.GetType().Name, errorDetail);
     }
 
-    public CinemaCmsServiceException(string message, MessageError error) : base(message)
+    public ServiceException(string message, MessageError error) : base(message)
     {
         Error = error;
     }
 
-    public CinemaCmsServiceException(string message, MessageError error, Exception innerException) : base(message, innerException)
+    public ServiceException(string message, MessageError error, Exception innerException) : base(message, innerException)
     {
         Error = error;
         var errorDetail = new MessageError(innerException.Message, innerException.Message, innerException.StackTrace);
         Error.ErrorDetails.Add(innerException.GetType().Name, errorDetail);
     }
 
-    protected CinemaCmsServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
+    protected ServiceException(SerializationInfo info, StreamingContext context) : base(info, context)
     {
         Error = info.GetValue(nameof(Error), typeof(MessageError)) as MessageError;
     }

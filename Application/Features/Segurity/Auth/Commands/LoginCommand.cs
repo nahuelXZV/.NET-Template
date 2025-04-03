@@ -8,14 +8,14 @@ using Domain.Interfaces;
 using Domain.Config;
 using MediatR;
 
-namespace Application.Features.Segurity.Users.Commands;
+namespace Application.Features.Segurity.Auth.Commands;
 
-public class IniciarSesionCommand : ICommand<Response<UsuarioDTO>>
+public class LoginCommand : ICommand<Response<UsuarioDTO>>
 {
     public required RequestLoginDTO RequestLoginDTO { get; set; }
 }
 
-public class IniciarSesionCommandHandler : ICommandHandler<IniciarSesionCommand, Response<UsuarioDTO>>
+public class IniciarSesionCommandHandler : ICommandHandler<LoginCommand, Response<UsuarioDTO>>
 {
     private readonly IMediator _mediator;
     private readonly IConfiguration _configuracion;
@@ -26,12 +26,12 @@ public class IniciarSesionCommandHandler : ICommandHandler<IniciarSesionCommand,
         _configuracion = configuracion;
     }
 
-    public async Task<Response<UsuarioDTO>> Handle(IniciarSesionCommand request, CancellationToken cancellationToken)
+    public async Task<Response<UsuarioDTO>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        UsuarioDTO usuario = (await _mediator.Send(new GetUsuarioByEmailQuery { Email = request.RequestLoginDTO.Email })).Data;
+        UsuarioDTO usuario = (await _mediator.Send(new GetUserByUsernameQuery { Username = request.RequestLoginDTO.Username })).Data;
         if (usuario == null) throw new Exception("Usuario no encontrado.");
 
-        bool passwordValido = PasswordHasherHelper.VerifyPassword(usuario.Email, usuario.Password, request.RequestLoginDTO.Password);
+        bool passwordValido = PasswordHasherHelper.VerifyPassword(usuario.Username, usuario.Password, request.RequestLoginDTO.Password);
         if (!passwordValido) throw new Exception("Usuario o Contraseña incorrecta.");
 
         JwtConfig jwtConfig = new JwtConfig

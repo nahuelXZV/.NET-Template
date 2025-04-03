@@ -35,10 +35,10 @@ public class GetUsuarioByLoginQueryHandler : IRequestHandler<GetUsuarioByLoginQu
                                         .Select(u => new UsuarioDTO
                                         {
                                             Id = u.Id,
+                                            Username = u.Username,
                                             Nombre = u.Nombre,
                                             Apellido = u.Apellido,
                                             Email = u.Email,
-                                            Rol = u.Rol
                                         })
                                         .SingleOrDefaultAsync(cancellationToken);
 
@@ -47,7 +47,6 @@ public class GetUsuarioByLoginQueryHandler : IRequestHandler<GetUsuarioByLoginQu
         }
         catch (Exception ex)
         {
-            // Captura y retorno del error para mayor visibilidad
             return new Response<UsuarioDTO>($"Error al obtener el usuario: {ex.Message}");
         }
     }

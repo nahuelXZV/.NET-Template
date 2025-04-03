@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities.Segurity;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
 using Domain.Interfaces;
-using Domain.Entities;
 using System.Dynamic;
 using System.Data;
+using System.Reflection;
 
 namespace Infraestructure.Persistence;
 
@@ -17,12 +16,12 @@ public class AppDbContext : DbContext, IDbContext, IUnitOfWork
     public IDbContextTransaction GetCurrentTransaction() => _currentTransaction;
     public bool HasActiveTransaction => _currentTransaction != null;
     public DbContext dbContext => this;
-    private SqlConnectionStringBuilder _sqlConnectionStringBuilder { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
     }
+
     public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
     {
         var result = await base.SaveChangesAsync(cancellationToken);
@@ -31,6 +30,7 @@ public class AppDbContext : DbContext, IDbContext, IUnitOfWork
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
@@ -145,10 +145,4 @@ public class AppDbContext : DbContext, IDbContext, IUnitOfWork
             dataRow.Add(dataReader.GetName(fieldCount), dataReader[fieldCount]);
         return dataRow;
     }
-
-
-    #region ENTIDADES
-    public DbSet<WeatherForecast> WeatherForecasts { get; set; }
-    public DbSet<Usuario> Usuario { get; set; }
-    #endregion
 }

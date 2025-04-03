@@ -1,31 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Application.Wrappers;
 using Domain.DTOs.Segurity;
-using Application.Wrappers;
 using Domain.Interfaces;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Segurity.Users.Queries;
 
-public class GetUsuarioByEmailQuery : IRequest<Response<UsuarioDTO>>
+public class GetUserByUsernameQuery : IRequest<Response<UsuarioDTO>>
 {
-    public string Email { get; set; }
+    public string Username { get; set; }
 }
 
-public class GetUsuarioByEmailQueryHandler : IRequestHandler<GetUsuarioByEmailQuery, Response<UsuarioDTO>>
+public class GetUserByUsernameQueryHandler : IRequestHandler<GetUserByUsernameQuery, Response<UsuarioDTO>>
 {
     private readonly IDbContext _appCnx;
-    private readonly IMediator _mediator;
 
-    public GetUsuarioByEmailQueryHandler(IDbContext appDbContext, IMediator mediator)
+    public GetUserByUsernameQueryHandler(IDbContext appDbContext)
     {
         _appCnx = appDbContext;
-        _mediator = mediator;
     }
-    public async Task<Response<UsuarioDTO>> Handle(GetUsuarioByEmailQuery request, CancellationToken cancellationToken)
+    public async Task<Response<UsuarioDTO>> Handle(GetUserByUsernameQuery request, CancellationToken cancellationToken)
     {
         var dbContext = _appCnx.dbContext;
+
         var usuarioRequest = await dbContext.Set<Domain.Entities.Segurity.Usuario>()
-                                        .Where(u => u.Email == request.Email)
+                                        .Where(u => u.Username == request.Username)
                                         .Select(u => new UsuarioDTO
                                         {
                                             Id = u.Id,

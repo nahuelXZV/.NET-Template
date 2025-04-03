@@ -6,4 +6,9 @@ public static class Constantes
     {
         public const string ReportServer = "ReportServer";
     }
+    public static class CorsPolicies
+    {
+        public const string ClienteWeb = "ClienteWeb";
+        public const string AllowOrigin = "AllowOrigin";
+    }
 }
