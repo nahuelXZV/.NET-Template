@@ -1,7 +1,7 @@
 ﻿using Domain.Exceptions;
-using Domain.Interfaces;
+using Domain.Interfaces.Shared;
 
-namespace Application.Wrappers;
+namespace Domain.Common;
 
 public class Response<T> : IResponse
 {

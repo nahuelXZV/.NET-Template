@@ -8,5 +8,9 @@ public class UsuarioDTO
     public string Apellido { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public long PerfilId { get; set; }
+
     public string? Token { get; set; }
+    
+    public PerfilDTO Perfil { get; set; }
 }

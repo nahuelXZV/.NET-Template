@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Infraestructure.Repositories;
 using Infraestructure.Persistence;
-using Domain.Interfaces;
+using Domain.Interfaces.Shared;
 
 namespace Infraestructure;
 

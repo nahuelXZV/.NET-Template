@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
-using Application.Wrappers;
 using Domain.Extensions;
 using Domain.Exceptions;
 using FluentValidation;
 using AutoMapper;
 using System.Net;
+using Domain.Common;
 
 namespace Application.Common.Middlewares;
 

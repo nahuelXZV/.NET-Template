@@ -1,8 +1,8 @@
-﻿using Application.Wrappers;
-using AutoMapper;
+﻿using AutoMapper;
+using Domain.Common;
 using Domain.DTOs.Segurity;
 using Domain.Entities.Segurity;
-using Domain.Interfaces;
+using Domain.Interfaces.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Segurity.Profile.Commands;

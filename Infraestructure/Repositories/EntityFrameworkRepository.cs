@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Infraestructure.Persistence;
 using System.Linq.Expressions;
-using Domain.Interfaces;
 using Domain.Common;
+using Domain.Interfaces.Shared;
 
 namespace Infraestructure.Repositories;
 

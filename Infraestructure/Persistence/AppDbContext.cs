@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.SqlClient;
 using System.Data.Common;
-using Domain.Interfaces;
 using System.Dynamic;
 using System.Data;
 using System.Reflection;
+using Domain.Interfaces.Shared;
 
 namespace Infraestructure.Persistence;
 

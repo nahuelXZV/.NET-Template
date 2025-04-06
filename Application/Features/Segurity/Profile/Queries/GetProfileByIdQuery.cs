@@ -1,8 +1,8 @@
-﻿using Application.Wrappers;
-using AutoMapper;
+﻿using AutoMapper;
+using Domain.Common;
 using Domain.DTOs.Segurity;
 using Domain.Entities.Segurity;
-using Domain.Interfaces;
+using Domain.Interfaces.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Segurity.Profile.Queries;
@@ -28,7 +28,8 @@ public class GetProfileByIdQueryHandler : ICommandHandler<GetProfileByIdQuery, R
         var query = _repository.Query().Where(p => !p.Eliminado)
             .Where(p => p.Id == request.Id)
             .Include(p => p.ListaAccesos)
-            .ThenInclude(la => la.Acceso);
+            .ThenInclude(la => la.Acceso)
+            .ThenInclude(ac => ac.Modulo);
 
         var perfil = await query.FirstOrDefaultAsync();
         if (perfil == null) throw new Exception("Perfil no encontrado.");

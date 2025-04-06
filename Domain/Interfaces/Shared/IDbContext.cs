@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace Domain.Interfaces;
+namespace Domain.Interfaces.Shared;
 
 public interface IDbContext : IDisposable
 {

@@ -1,8 +1,4 @@
-﻿
-
-using Domain.Entities.Segurity;
-
-namespace Domain.DTOs.Segurity;
+﻿namespace Domain.DTOs.Segurity;
 
 public class PerfilDTO
 {
@@ -10,5 +6,5 @@ public class PerfilDTO
     public string Nombre { get; set; }
     public string Descripcion { get; set; }
 
-    public List<PerfilAcceso> ListaAccesos { get; set; }
+    public List<PerfilAccesoDTO> ListaAccesos { get; set; }
 }

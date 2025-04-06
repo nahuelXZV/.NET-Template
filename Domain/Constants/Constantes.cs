@@ -4,7 +4,7 @@ public static class Constantes
 {
     public static class HttpClientNames
     {
-        public const string ReportServer = "ReportServer";
+        public const string ApiRest = "ApiRest";
     }
     public static class CorsPolicies
     {

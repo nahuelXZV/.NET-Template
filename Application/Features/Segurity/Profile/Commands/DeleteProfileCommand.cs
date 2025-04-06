@@ -1,6 +1,6 @@
-﻿using Application.Wrappers;
+﻿using Domain.Common;
 using Domain.Entities.Segurity;
-using Domain.Interfaces;
+using Domain.Interfaces.Shared;
 
 namespace Application.Features.Segurity.Profile.Commands;
 

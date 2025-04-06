@@ -1,6 +1,6 @@
 ﻿using Domain.Exceptions;
 
-namespace Domain.Interfaces;
+namespace Domain.Interfaces.Shared;
 public interface IResponse
 {
     bool Succeded { get; set; }

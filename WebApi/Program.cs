@@ -118,7 +118,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseSerilogRequestLogging();
-app.UseCors(Constantes.CorsPolicies.ClienteWeb);
+app.UseCors(Constantes.CorsPolicies.AllowOrigin);
 app.UseApplicationMiddlewares();
 app.UseHttpsRedirection();
 

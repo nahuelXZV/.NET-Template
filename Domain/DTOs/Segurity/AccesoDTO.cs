@@ -1,9 +1,8 @@
-﻿using Domain.Common;
+﻿namespace Domain.DTOs.Segurity;
 
-namespace Domain.Entities.Segurity;
-
-public class Acceso : Entity
+public class AccesoDTO
 {
+    public long Id { get; set; }
     public string Nombre { get; set; }
     public int Secuencia { get; set; }
     public string Controlador { get; set; }
@@ -13,5 +12,5 @@ public class Acceso : Entity
     public string Descripcion { get; set; }
     public long ModuloId { get; set; }
 
-    public Modulo Modulo { get; set; }
+    public ModuloDTO Modulo { get; set; }
 }

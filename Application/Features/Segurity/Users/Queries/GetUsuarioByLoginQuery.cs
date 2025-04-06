@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.DTOs.Segurity;
-using Application.Wrappers;
-using Domain.Interfaces;
 using MediatR;
+using Domain.Interfaces.Shared;
+using Domain.Common;
 
 namespace Application.Features.Segurity.Users.Queries;
 

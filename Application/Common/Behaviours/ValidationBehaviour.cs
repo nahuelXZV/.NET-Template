@@ -1,9 +1,9 @@
 ﻿using Application.Common.Extensions;
 using FluentValidation.Results;
-using Domain.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Domain.Interfaces.Shared;
 
 namespace Application.Common.Behaviours;
 

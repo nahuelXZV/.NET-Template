@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Domain.DTOs.Segurity.request;
 using Domain.DTOs.Segurity;
-using Application.Wrappers;
 using Application.Helpers;
-using Domain.Interfaces;
 using Domain.Config;
 using MediatR;
+using Domain.Interfaces.Shared;
+using Domain.Common;
 
 namespace Application.Features.Segurity.Auth.Commands;
 
