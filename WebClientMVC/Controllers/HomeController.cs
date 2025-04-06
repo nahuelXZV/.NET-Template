@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebClientMVC.Models;
@@ -13,9 +14,12 @@ namespace WebClientMVC.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
+            var model = new HomeViewModel(HttpContext);
+            model.IncluirBlazorComponents = true;
+            return View(model);
         }
 
         public IActionResult Privacy()

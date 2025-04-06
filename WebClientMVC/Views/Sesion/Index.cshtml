@@ -1,0 +1,51 @@
+﻿@model SesionViewModel;
+@{
+	ViewData["Title"] = "Iniciar Sesion";
+	Layout = "_SesionLayout";
+}
+
+<div class="relative p-6 bg-white z-1 dark:bg-gray-900 sm:p-0">
+	<div class="relative flex flex-col justify-center w-full h-screen dark:bg-gray-900 sm:p-0 lg:flex-row">
+		<partial name="_LoginForm" />
+	</div>
+</div>
+
+
+@section Scripts {
+	<script>
+		function processError(jsonError) {
+			const normalized = jsonError
+				.replaceAll(/\\/g, "/")
+				.replaceAll(/\n/g, "\\n")
+				.replaceAll(/\r/g, "\\r");
+
+			return normalized;
+		}
+		function mostrarErrores() {
+			let viewErrors = JSON.parse(processError(`@Json.Serialize(Model.Errores)`));
+			let messageItems = viewErrors?.map(error => `<p>${error.clientMessage}</p>`)?.join('') ?? "";
+			let modal = document.getElementById("modal-error");
+			let contentido = document.getElementById("modalContent")
+			contentido.innerHTML = messageItems;
+			modal.classList.remove("hidden");
+		}
+		document.querySelector('#modal-error button').addEventListener('click', () => {
+			document.getElementById("modal-error").classList.add("hidden");
+		});
+	</script>
+
+	@if (Model.Errores.Any())
+	{
+		<script>
+			mostrarErrores();
+		</script>
+	}
+
+	<script>
+		function failed(xhr, status, error) {
+			console.debug("xhr: ", xhr, " status: ", status, " error: ", error);
+		}
+	</script>
+}
+
+

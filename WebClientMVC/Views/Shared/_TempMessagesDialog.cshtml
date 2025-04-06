@@ -1,0 +1,70 @@
+﻿@using WebClientMVC.Common
+@model MainViewModel;
+
+@{
+	var componentId = "tempMessagesDialog";
+
+	var defaultTypeTitles = new Dictionary<MessageType, string>
+	{
+		{ MessageType.Success, "Exito!" },
+		{ MessageType.Error, "Error!" },
+		{ MessageType.Warning, "Alerta!" },
+		{ MessageType.Information, "Información!" }
+	};
+
+	var messageTypeIcons = new Dictionary<MessageType, string>
+	{
+		{ MessageType.Success, "success-icon fas fa-circle-check" },
+		{ MessageType.Error, "error-icon fas fa-circle-xmark" },
+		{ MessageType.Warning, "warning-icon fas fa-circle-exclamation" },
+		{ MessageType.Information, "information-icon fas fa-circle-info" }
+	};
+}
+
+@if (Model.Messages.Count > 0)
+{
+	<div id="modal-error" class="hidden fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black/50">
+		<div class="relative p-4 w-full md:max-w-2/4">
+			<div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+				<div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
+					<h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+						@defaultTypeTitles[Model.Messages.FirstOrDefault()?.Type ?? MessageType.Information]
+					</h3>
+					<button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+						<svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+						</svg>
+						<span class="sr-only">Close modal</span>
+					</button>
+				</div>
+				<div class="p-4 md:p-5 space-y-4" id="modalContent">
+					@foreach (var mensaje in Model.Messages)
+					{
+						<div class="temp-message-dialog-content">
+							<i class='viewer-icon @messageTypeIcons[mensaje.Type]'></i>
+							<div class="message-content">@mensaje.Message</div>
+						</div>
+					}
+				</div>
+				<div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+				</div>
+			</div>
+		</div>
+	</div>
+}
+
+@* <ejs-dialog id="@componentId" *@
+@* 			created="tempMessageDialogCreated" allowDragging="true" cssClass="temp-message-dialog" *@
+@* 			visible="@Model.Messages.Any()" isModal="true" *@
+@* 			header="@defaultTypeTitles[Model.Messages.FirstOrDefault()?.Type ?? MessageType.Information]" showCloseIcon="true" *@
+@* 			open="tempMessageDialogOpen" close="tempMessageDialogClose"> *@
+@* 	<e-content-template> *@
+@* 		@foreach (var mensaje in Model.Messages) *@
+@* 		{ *@
+@* 			<div class="temp-message-dialog-content"> *@
+@* 				<i class='viewer-icon @messageTypeIcons[mensaje.Type]'></i> *@
+@* 				<div class="message-content">@mensaje.Message</div> *@
+@* 			</div> *@
+@* 		} *@
+@* 	</e-content-template> *@
+@* </ejs-dialog> *@

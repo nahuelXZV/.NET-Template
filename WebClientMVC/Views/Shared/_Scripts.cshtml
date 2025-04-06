@@ -1,0 +1,35 @@
+﻿@model MainViewModel;
+<environment include="Development,Staging,Production">
+	<script>
+		const rootUrl = new URL("@Url.Content("~/")", document.baseURI);
+
+		window.blazorComponentsInstances = new Map();
+		// window.addEventListener("load", ev => {
+		// 	let loader = document.getElementById('loader');
+
+		// 	if (loader) {
+		// 		loader.style.display = 'none';
+		// 	}
+		// });
+		// window.addEventListener("beforeunload", ev => {
+		// 	let loader = document.getElementById('loader');
+
+		// 	if (loader) {
+		// 		loader.style.display = 'flex';
+		// 	}
+		// });
+	</script>
+	<script src="~/js/layout.js" asp-append-version="true"></script>
+</environment>
+
+
+@if (Model.IncluirBlazorComponents)
+{
+	<script src="@Url.Content("~/_framework/blazor.server.js")" autostart="false"></script>
+	<script src="~/js/blazor-init.js" asp-append-version="true"></script>
+
+}
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/bundle.js" asp-append-version="true"></script> 
