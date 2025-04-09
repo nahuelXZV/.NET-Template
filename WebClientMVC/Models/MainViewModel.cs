@@ -18,6 +18,8 @@ public class MainViewModel
     public long IdUsuarioLoggedIn { get; set; }
     public long IdPerfil { get; set; }
     public string NombreUsuarioLoggedIn { get; set; }
+    public string ApellidoUsuarioLoggedIn { get; set; }
+    public string NombreCompletoUsuarioLoggedIn { get; set; }
     public string FotoUsuarioLoggedIn { get; set; }
     public string CorreoLoggedIn { get; set; }
     public string InformacionSesion { get; set; }
@@ -51,6 +53,8 @@ public class MainViewModel
         IdUsuarioLoggedIn = long.Parse(userClaims.GetClaimValue(Constantes.ClaimTypes.UsuarioId));
         IdPerfil = long.Parse(userClaims.GetClaimValue(Constantes.ClaimTypes.PerfilId));
         NombreUsuarioLoggedIn = userClaims.GetClaimValue(Constantes.ClaimTypes.NombreUsuario);
+        ApellidoUsuarioLoggedIn = userClaims.GetClaimValue(Constantes.ClaimTypes.ApellidoUsuario);
+        NombreCompletoUsuarioLoggedIn = userClaims.GetClaimValue(Constantes.ClaimTypes.NombreCompleto);
         CorreoLoggedIn = userClaims.GetClaimValue(Constantes.ClaimTypes.Correo);
         FotoUsuarioLoggedIn = "";
     }

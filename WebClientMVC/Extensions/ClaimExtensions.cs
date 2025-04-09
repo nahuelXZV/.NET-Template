@@ -70,6 +70,8 @@ public static class ClaimExtensions
             new Claim(Constantes.ClaimTypes.UsuarioId, usuario.Id.ToString()),
             new Claim(Constantes.ClaimTypes.PerfilId, usuario.PerfilId.ToString()),
             new Claim(Constantes.ClaimTypes.NombreUsuario, usuario.Nombre),
+            new Claim(Constantes.ClaimTypes.ApellidoUsuario, usuario.Apellido),
+            new Claim(Constantes.ClaimTypes.NombreCompleto, usuario.Nombre + " " + usuario.Apellido),
             new Claim(Constantes.ClaimTypes.Correo, usuario.Email),
             new Claim(Constantes.ClaimTypes.IpSesion, model.DireccionIp),
             new Claim(Constantes.ClaimTypes.Token, usuario.Token??""),

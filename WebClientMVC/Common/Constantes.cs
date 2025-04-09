@@ -12,6 +12,8 @@ public class Constantes
         public const string UsuarioId = "UsuarioId";
         public const string PerfilId = "PerfilId";
         public const string NombreUsuario = "NombreUsuario";
+        public const string ApellidoUsuario = "ApellidoUsuario";
+        public const string NombreCompleto = "NombreCompleto";
         public const string Token = "Token";
         public const string Correo = "Correo";
         public const string AccesosPermitidos = "AccesosPermitidos";
