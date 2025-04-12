@@ -37,14 +37,14 @@ public enum MessageType
     Information = 3
 }
 
-//public enum MenuItemId
-//{
-//    Editar = 1,
-//    Eliminar = 2,
-//    Habilitar = 3,
-//    Configurar = 4,
-//    Detalles = 5
-//}
+public enum MenuItemId
+{
+    Editar = 1,
+    Eliminar = 2,
+    Habilitar = 3,
+    Configurar = 4,
+    Detalles = 5
+}
 
 public enum MenuItemActionType
 {

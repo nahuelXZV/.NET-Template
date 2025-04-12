@@ -7,13 +7,32 @@ using WebClientMVC.Extensions;
 
 namespace WebClientMVC.Models;
 
+public interface IMainViewModel
+{
+    void Initialize(HttpContext context, AdminConfig adminConfig);
+}
+
+public class ItemMenu
+{
+    public MenuItemId Id { get; set; }
+    public string Text { get; set; }
+    public string IconCss { get; set; }
+    public string Url { get; set; }
+    public bool Separator { get; set; }
+    public object Data { get; set; }
+    //public List<ContextMenuItem> Items { get; set; } = new List<ContextMenuItem>();
+    public MenuItemActionType ActionType { get; set; } = MenuItemActionType.GET;
+    public bool Confirm { get; set; }
+    public string ConfirmMessage { get; set; }
+}
+
 public class MessageModel
 {
     public MessageType Type { get; set; }
     public string Message { get; set; }
 }
 
-public class MainViewModel
+public class MainViewModel : IMainViewModel
 {
     public long IdUsuarioLoggedIn { get; set; }
     public long IdPerfil { get; set; }
@@ -22,19 +41,24 @@ public class MainViewModel
     public string NombreCompletoUsuarioLoggedIn { get; set; }
     public string FotoUsuarioLoggedIn { get; set; }
     public string CorreoLoggedIn { get; set; }
-    public string InformacionSesion { get; set; }
     public AdminConfig Configuraciones { get; set; }
     public List<ModuloDTO> ModulosMenu { get; set; }
     public bool IncluirBlazorComponents { get; set; } = false;
     public List<MessageModel> Messages { get; set; }
+    public List<ItemMenu> ListaItemsMenu { get; set; } = new();
 
-    public MainViewModel()
-    {
-    }
+    public MainViewModel() { }
 
     public MainViewModel(HttpContext context)
     {
-        //Configuraciones = Startup.Configuraciones;
+        CargarTempMessages(context);
+        CargarAccesos(context);
+        CargarDatosUsuarioLoggedIn(context.User);
+    }
+
+    public virtual void Initialize(HttpContext context, AdminConfig adminConfig)
+    {
+        Configuraciones = adminConfig;
         CargarTempMessages(context);
         CargarAccesos(context);
         CargarDatosUsuarioLoggedIn(context.User);

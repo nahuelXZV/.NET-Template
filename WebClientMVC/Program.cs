@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.DataProtection;
 using WebClientMVC.Common.Middlewares;
 using WebClientMVC.Configs;
 using WebClientMVC.Extensions;
+using WebClientMVC.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 //builder.Host.UseCustomLogger();
@@ -53,6 +54,7 @@ services.AddSession(options =>
 #region Configuraciones
 services.Configure<AdminConfig>(configuration);
 services.AddServices(Configuraciones);
+services.AddSingleton<ViewModelFactory>();
 #endregion
 
 #region Authentication

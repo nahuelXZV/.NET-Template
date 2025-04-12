@@ -2,7 +2,5 @@
 
 public class HomeViewModel : MainViewModel
 {
-    public HomeViewModel(HttpContext context) : base(context)
-    {
-    }
+    public HomeViewModel() { }
 }

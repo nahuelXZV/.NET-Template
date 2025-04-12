@@ -1,12 +1,23 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebClientMVC.Configs;
+using WebClientMVC.Models;
 
 namespace WebClientMVC.Controllers;
 
 [Authorize]
 public class MainController : Controller
 {
+    protected ViewModelFactory _viewModelFactory { get; set; }
+    
+    public MainController() { }
+
+    public MainController(ViewModelFactory viewModelFactory)
+    {
+        _viewModelFactory = viewModelFactory;
+    }
+
     public IActionResult ProcessError(Exception ex)
     {
         var match = Regex.Matches(ex.Message, @"\d+").FirstOrDefault();
@@ -15,6 +26,5 @@ public class MainController : Controller
         statusCode = statusCode > 599 || statusCode < 200 ? 500 : statusCode;
 
         return StatusCode(statusCode, ex.Message);
-        //return StatusCode(statusCode, ex.Error.DiagnosticMessage);
     }
 }
