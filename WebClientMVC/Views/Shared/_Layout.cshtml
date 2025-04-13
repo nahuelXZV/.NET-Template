@@ -49,8 +49,10 @@
 	</div>
 
 	<partial name="_TempMessagesDialog" />
+	<partial name="_ModalConfirmacion" />
 	<script>
 		const tempMessages = @Json.Serialize(Model.Messages);
+		const menuItems = @Json.Serialize(Model.ListaItemsMenu);
 	</script>
 
 	<partial name="_Scripts" />

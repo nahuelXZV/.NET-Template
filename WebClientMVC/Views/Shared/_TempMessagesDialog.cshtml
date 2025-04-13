@@ -52,19 +52,3 @@
 		</div>
 	</div>
 }
-
-@* <ejs-dialog id="@componentId" *@
-@* 			created="tempMessageDialogCreated" allowDragging="true" cssClass="temp-message-dialog" *@
-@* 			visible="@Model.Messages.Any()" isModal="true" *@
-@* 			header="@defaultTypeTitles[Model.Messages.FirstOrDefault()?.Type ?? MessageType.Information]" showCloseIcon="true" *@
-@* 			open="tempMessageDialogOpen" close="tempMessageDialogClose"> *@
-@* 	<e-content-template> *@
-@* 		@foreach (var mensaje in Model.Messages) *@
-@* 		{ *@
-@* 			<div class="temp-message-dialog-content"> *@
-@* 				<i class='viewer-icon @messageTypeIcons[mensaje.Type]'></i> *@
-@* 				<div class="message-content">@mensaje.Message</div> *@
-@* 			</div> *@
-@* 		} *@
-@* 	</e-content-template> *@
-@* </ejs-dialog> *@
