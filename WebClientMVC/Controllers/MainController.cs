@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebClientMVC.Configs;
 using WebClientMVC.Models;
+using WebClientMVC.Services;
 
 namespace WebClientMVC.Controllers;
 
@@ -10,12 +11,14 @@ namespace WebClientMVC.Controllers;
 public class MainController : Controller
 {
     protected ViewModelFactory _viewModelFactory { get; set; }
-    
+    protected readonly IAppServices _appServices;
+
     public MainController() { }
 
-    public MainController(ViewModelFactory viewModelFactory)
+    public MainController(ViewModelFactory viewModelFactory, IAppServices services)
     {
         _viewModelFactory = viewModelFactory;
+        _appServices = services;
     }
 
     public IActionResult ProcessError(Exception ex)

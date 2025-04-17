@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces.Services;
+﻿using Domain.Interfaces.Services.Segurity;
 
 namespace WebClientMVC.Services.Implementacion;
 
@@ -9,6 +9,8 @@ public class AppServices : IAppServices
     private readonly IServiceProvider _serviceProvider;
 
     private ISesionService _sesionService;
+    private IPerfilService _perfilService;
+    private IModuloService _moduloService;
 
     public AppServices(IServiceProvider serviceProvider, ILogger<AppServices> logger)
     {
@@ -18,4 +20,7 @@ public class AppServices : IAppServices
 
     public ISesionService SesionService => _sesionService ??= _serviceProvider.GetService<ISesionService>();
 
+    public IPerfilService PerfilService => _perfilService ??= _serviceProvider.GetService<IPerfilService>();
+
+    public IModuloService ModuloService => _moduloService ??= _serviceProvider.GetService<IModuloService>();
 }

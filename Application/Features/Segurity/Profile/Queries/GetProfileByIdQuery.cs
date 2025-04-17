@@ -29,9 +29,6 @@ public class GetProfileByIdQueryHandler : ICommandHandler<GetProfileByIdQuery, R
     {
         var query = _repository.Query().Where(p => !p.Eliminado)
             .Where(p => p.Id == request.Id);
-        //.Include(p => p.ListaAccesos)
-        //.ThenInclude(la => la.Acceso)
-        //.ThenInclude(ac => ac.Modulo);
 
         var perfil = await query.FirstOrDefaultAsync();
         if (perfil == null) throw new Exception("Perfil no encontrado.");

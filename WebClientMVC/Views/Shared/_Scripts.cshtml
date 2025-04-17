@@ -2,7 +2,7 @@
 <environment include="Development,Staging,Production">
 	<script>
 		const rootUrl = new URL("@Url.Content("~/")", document.baseURI);
-		const urlWeb = "@(Model.Configuraciones.General.WebUrl)";
+		const urlWeb = "@(Model.Configuraciones?.General.WebUrl ?? "")";
 
 		window.blazorComponentsInstances = new Map();
 	</script>

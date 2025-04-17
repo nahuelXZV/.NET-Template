@@ -1,0 +1,48 @@
+﻿@using WebClientMVC.Components.Shared.Elements
+@inherits Components.MainBaseComponent;
+
+<div class="grid grid-cols-6 md:grid-cols-12 gap-2 p-2">
+
+	<IUCard CustomClass="col-span-6">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Datos del perfil</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-4 md:grid-cols-12 gap-2">
+				<div class="col-span-4">
+					<IUInputText Label="Nombre"
+								 Placeholder="Escriba el nombre del perfil..."
+								 Required=true />
+				</div>
+				<div class="col-span-4">
+					<IUInputText Label="Descripcion"
+								 Placeholder="Escriba una pequeña descripcion..."
+								 Required=true />
+				</div>
+			</div>
+		</Body>
+	</IUCard>
+
+	<IUCard CustomClass="col-span-6">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Accesos asociados</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-4 md:grid-cols-12 gap-2">
+				<div class="col-span-4">
+					<IUInputCheckbox Label="Acceso A" />
+				</div>
+				<div class="col-span-4">
+					<IUInputCheckbox Label="Acceso B" />
+				</div>
+			</div>
+		</Body>
+	</IUCard>
+
+
+
+
+
+</div>

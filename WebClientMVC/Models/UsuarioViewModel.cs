@@ -1,5 +1,4 @@
 ﻿using Domain.DTOs.Segurity;
-using WebClientMVC.Configs;
 
 namespace WebClientMVC.Models;
 

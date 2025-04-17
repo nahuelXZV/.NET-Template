@@ -1,6 +1,6 @@
 ﻿using Domain.Common;
 
-namespace Domain.Entities.General;
+namespace Domain.Entities.Configuration;
 
 public class Concepto : Entity
 {

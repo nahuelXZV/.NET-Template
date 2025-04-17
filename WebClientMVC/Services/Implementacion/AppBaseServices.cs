@@ -3,6 +3,7 @@ using System.Net;
 using Domain.Constants;
 using Domain.Extensions;
 using Domain.Common;
+using Domain.DTOs.Shared;
 
 namespace WebClientMVC.Services.Implementacion;
 
@@ -22,6 +23,26 @@ public class AppBaseServices
         _logger = logger;
         _serviceBaseUrl = serviceBaseUrl;
         _httpClient = httpClientFactory.CreateClient(Constantes.HttpClientNames.ApiRest);
+    }
+
+    protected string AplicarFiltro(FilterDTO? filtro)
+    {
+        if (filtro == null) return "";
+
+        var queryParams = new List<string>();
+
+        if (filtro.Limit > 0)
+            queryParams.Add($"limit={filtro.Limit}");
+
+        if (filtro.Offset > 0)
+            queryParams.Add($"offset={filtro.Offset}");
+
+        if (!string.IsNullOrWhiteSpace(filtro.Search))
+            queryParams.Add($"search={Uri.EscapeDataString(filtro.Search)}");
+
+        if (queryParams.Count == 1) return "?" + queryParams.First();
+
+        return queryParams.Count > 0 ? "?" + string.Join("&", queryParams) : "";
     }
 
     protected async Task<TResult> GetAsync<TResult>(string uri = "") where TResult : new()

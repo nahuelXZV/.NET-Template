@@ -1,6 +1,7 @@
 ﻿using Domain.DTOs.Segurity;
 using Microsoft.AspNetCore.Mvc;
 using WebClientMVC.Models;
+using WebClientMVC.Services;
 
 namespace WebClientMVC.Controllers;
 
@@ -9,7 +10,8 @@ public class UsuarioController : MainController
 {
     private readonly ILogger<UsuarioController> _logger;
 
-    public UsuarioController(ViewModelFactory viewModelFactory, ILogger<UsuarioController> logger) : base(viewModelFactory)
+    public UsuarioController(ViewModelFactory viewModelFactory, ILogger<UsuarioController> logger, IAppServices services)
+        : base(viewModelFactory, services)
     {
         _logger = logger;
     }

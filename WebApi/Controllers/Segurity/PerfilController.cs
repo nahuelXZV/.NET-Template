@@ -1,23 +1,24 @@
 ﻿using Application.Features.Segurity.Profile.Commands;
 using Application.Features.Segurity.Profile.Queries;
 using Domain.DTOs.Segurity;
+using Domain.DTOs.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.Segurity;
 
-public class ProfileController : MainController
+public class PerfilController : MainController
 {
-    private readonly ILogger<ProfileController> _logger;
+    private readonly ILogger<PerfilController> _logger;
 
-    public ProfileController(ILogger<ProfileController> logger)
+    public PerfilController(ILogger<PerfilController> logger)
     {
         _logger = logger;
     }
 
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> Get([FromQuery] FilterDTO? filter)
     {
-        return Ok(await Mediator.Send(new GetAllProfilesQuery()));
+        return Ok(await Mediator.Send(new GetAllProfilesQuery() { Filter = filter }));
     }
 
     [HttpGet("{idProfile}")]

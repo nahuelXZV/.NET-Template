@@ -2,37 +2,38 @@
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
 using Microsoft.JSInterop;
+using WebClientMVC.Configs;
+using WebClientMVC.Services;
 
 namespace WebClientMVC.Components;
 
 public partial class MainBaseComponent : ComponentBase
 {
-    //[Inject] public IJSRuntime JSRuntime { get; set; }
-    //[CascadingParameter] public Task<AuthenticationState> AuthenticationState { get; set; }
-    //[CascadingParameter] protected AdminConfig AdminConfig { get; set; }
-    //[CascadingParameter] public IAppServices AppServices { get; set; }
-    //protected ClaimsPrincipal User { get; set; } = new ClaimsPrincipal();
-    //public AlertaModal AlertaModal { get; set; } = new();
+    [Inject] public IJSRuntime JSRuntime { get; set; }
+    [CascadingParameter] public Task<AuthenticationState> AuthenticationState { get; set; }
+    [CascadingParameter] protected AdminConfig AdminConfig { get; set; }
+    [CascadingParameter] public IAppServices AppServices { get; set; }
+    protected ClaimsPrincipal User { get; set; } = new ClaimsPrincipal();
 
-    //private async Task<ClaimsPrincipal> GetAuth()
-    //{
-    //    if (AuthenticationState is null) return null;
+    private async Task<ClaimsPrincipal> GetAuth()
+    {
+        if (AuthenticationState is null) return null;
 
-    //    var authState = await AuthenticationState;
-    //    var user = authState?.User;
+        var authState = await AuthenticationState;
+        var user = authState?.User;
 
-    //    return user;
-    //}
+        return user;
+    }
 
-    //protected bool IsAuthenticated()
-    //{
-    //    return User?.Identity is not null && User.Identity.IsAuthenticated;
-    //}
+    protected bool IsAuthenticated()
+    {
+        return User?.Identity is not null && User.Identity.IsAuthenticated;
+    }
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    User = await GetAuth();
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        User = await GetAuth();
+    }
 
     //public async Task ShowSuccessMessage(string message)
     //{
@@ -89,19 +90,5 @@ public partial class MainBaseComponent : ComponentBase
     //    }
 
     //    await JSRuntime.InvokeVoidAsync("Message.error", message + errorDetails);
-    //}
-
-    //public void MostrarAlertaModal(string message, string? titulo = "")
-    //{
-    //    AlertaModal.MostrarModal = true;
-    //    AlertaModal.Contenido = message;
-    //    if (!string.IsNullOrEmpty(titulo))
-    //        AlertaModal.Titulo = titulo;
-    //}
-
-    //public void ModalCerradoAlertaHandler()
-    //{
-    //    AlertaModal = new();
-    //    StateHasChanged();
     //}
 }

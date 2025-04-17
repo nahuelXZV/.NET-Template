@@ -1,0 +1,55 @@
+﻿@using WebClientMVC.Common
+@using WebClientMVC.Components.Configuration.Perfil
+@model PerfilViewModel
+
+@{
+	ViewData["Title"] = "Perfil";
+	ViewData["Module"] = "Perfil";
+	ViewData["Action"] = "Crear";
+
+	var componentName = nameof(PerfilCreateComponent);
+	var componentParameters = new Dictionary<string, object>
+	{
+		// { nameof(FeriadoCrearComponent.Feriado), Model.Feriado  },
+		// { nameof(FeriadoCrearComponent.ListaRegiones), Model.ListaRegiones  },
+	};
+}
+<script>
+	class @componentName {
+		componentInstance;
+		guardarButton;
+
+		constructor(componentInstance) {
+			this.componentInstance = componentInstance;
+			this.guardarButton = document.querySelector('.btn-submit');
+
+			this.guardarButton.addEventListener('click', ev => this.MostrarModalNuevaCitaHandler());
+		}
+
+		static init(componentInstance) {
+			window.@componentName = new @(componentName)(componentInstance);
+		}
+	}
+
+	window.@componentName = @componentName;
+</script>
+
+@section ContentHeader {
+	<div class="inline-flex rounded-md shadow-xs" role="group">
+		<a href="@Url.Action("Listado","Perfil")" class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700">
+			<i class="fa fa-reply mr-1"></i>
+			Volver
+		</a>
+		<button type="button" class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700">
+			<i class="fa fa-save mr-1"></i>
+			Guardar
+		</button>
+	</div>
+}
+
+
+<component type="typeof(MainComponent)"
+		   param-ComponentTypeName="typeof(PerfilCreateComponent).FullName"
+		   param-Parameters="@componentParameters"
+		   render-mode="ServerPrerendered" />
+

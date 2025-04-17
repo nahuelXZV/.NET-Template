@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Domain.Entities.General;
+using Domain.Entities.Configuration;
 
 namespace Infraestructure.Persistence.Configurations.General;
 

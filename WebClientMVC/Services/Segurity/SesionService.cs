@@ -1,8 +1,9 @@
 ﻿using Domain.DTOs.Segurity;
 using Domain.DTOs.Segurity.request;
-using Domain.Interfaces.Services;
+using Domain.Interfaces.Services.Segurity;
+using WebClientMVC.Services.Implementacion;
 
-namespace WebClientMVC.Services.Implementacion;
+namespace WebClientMVC.Services.Segurity;
 
 public class SesionService : AppBaseServices, ISesionService
 {

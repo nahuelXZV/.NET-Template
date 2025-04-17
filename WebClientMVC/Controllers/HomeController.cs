@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebClientMVC.Models;
+using WebClientMVC.Services;
 
 namespace WebClientMVC.Controllers;
 
@@ -9,7 +10,8 @@ public class HomeController : MainController
 {
     private readonly ILogger<HomeController> _logger;
 
-    public HomeController(ViewModelFactory viewModelFactory, ILogger<HomeController> logger) : base(viewModelFactory)
+    public HomeController(ViewModelFactory viewModelFactory, ILogger<HomeController> logger, IAppServices services)
+        : base(viewModelFactory, services)
     {
         _logger = logger;
     }
