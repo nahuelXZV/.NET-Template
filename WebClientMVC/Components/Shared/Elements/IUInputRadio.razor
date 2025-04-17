@@ -1,0 +1,29 @@
+﻿<div class="">
+	<input id="@Id"
+		   type="radio"
+		   name="@Name"
+		   value="@Value"
+		   class="@InputClass"
+		   @onchange="OnChange" />
+	<label for="@Id" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">@Label</label>
+</div>
+
+@code {
+	// TODO: Falta hacer que el binding funcione
+	[Parameter] public string Label { get; set; } = "Radio Button Label";
+	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
+	[Parameter] public string Name { get; set; } = "default-radio";
+	[Parameter] public string Value { get; set; } = string.Empty;
+	[Parameter] public string InputClass { get; set; } = "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600";
+
+	[Parameter] public bool IsSelected { get; set; }
+	[Parameter] public EventCallback<bool> IsSelectedChanged { get; set; }
+
+	[Parameter] public bool Required { get; set; } = false;
+
+	private async Task OnChange(ChangeEventArgs e)
+	{
+		IsSelected = (bool)e.Value;
+		await IsSelectedChanged.InvokeAsync(IsSelected);
+	}
+}

@@ -1,0 +1,35 @@
+﻿<div>
+	<label for="@Id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@Label</label>
+	<input type="number"
+		   id="@Id"
+		   class="@InputClass"
+		   placeholder="@Placeholder"
+		   value="@Value"
+		   @oninput="OnInput"
+		   required="@Required"
+		   readonly="@Readonly" />
+</div>
+
+@code {
+	[Parameter] public string Label { get; set; } = "Label";
+	[Parameter] public string Placeholder { get; set; } = "";
+	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
+	[Parameter] public string InputClass { get; set; } = "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
+	[Parameter] public bool Required { get; set; } = false;
+	[Parameter] public bool Readonly { get; set; } = false;
+
+	[Parameter] public long Value { get; set; }
+	[Parameter] public EventCallback<long> ValueChanged { get; set; }
+
+	private async Task OnInput(ChangeEventArgs e)
+	{
+		if (long.TryParse(e?.Value?.ToString(), out var newValue))
+		{
+			if (newValue != Value)
+			{
+				Value = newValue;
+				await ValueChanged.InvokeAsync(newValue);
+			}
+		}
+	}
+}

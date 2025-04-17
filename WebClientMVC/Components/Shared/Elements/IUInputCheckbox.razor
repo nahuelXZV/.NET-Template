@@ -1,0 +1,25 @@
+﻿<div class="">
+	<input id="@Id"
+		   type="checkbox"
+		   class="@InputClass"
+		   value="@Value"
+		   @onchange="OnChange"
+		   required="@Required" />
+	<label for="@Id" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">@Label</label>
+</div>
+
+@code {
+	[Parameter] public string Label { get; set; } = "Checkbox Label";
+	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
+	[Parameter] public string InputClass { get; set; } = "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm dark:bg-gray-700 dark:border-gray-600";
+	[Parameter] public bool Required { get; set; } = false;
+
+	[Parameter] public bool Value { get; set; }
+	[Parameter] public EventCallback<bool> ValueChanged { get; set; }
+
+	private async Task OnChange(ChangeEventArgs e)
+	{
+		Value = (bool)e.Value;
+		await ValueChanged.InvokeAsync(Value);
+	}
+}

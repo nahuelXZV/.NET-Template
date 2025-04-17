@@ -1,0 +1,33 @@
+﻿<div>
+	<label for="@Id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@Label</label>
+	<textarea id="@Id"
+			  class="@TextAreaClass"
+			  placeholder="@Placeholder"
+			  rows="@Rows"
+			  @oninput="OnInput"
+			  required="@Required"
+			  readonly="@Readonly"></textarea>
+</div>
+
+@code {
+	[Parameter] public string Label { get; set; } = "Textarea";
+	[Parameter] public string Placeholder { get; set; } = "Please enter text here...";
+	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
+	[Parameter] public string TextAreaClass { get; set; } = "block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
+	[Parameter] public int Rows { get; set; } = 3;
+	[Parameter] public bool Required { get; set; } = false;
+	[Parameter] public bool Readonly { get; set; } = false;
+
+	[Parameter] public string Value { get; set; }
+	[Parameter] public EventCallback<string> ValueChanged { get; set; }
+
+	private async Task OnInput(ChangeEventArgs e)
+	{
+		var newValue = e.Value?.ToString();
+		if (newValue != Value)
+		{
+			Value = newValue;
+			await ValueChanged.InvokeAsync(Value);
+		}
+	}
+}
