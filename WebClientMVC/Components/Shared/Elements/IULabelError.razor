@@ -1,0 +1,16 @@
+﻿<p class="mt-2 text-sm text-red-600 dark:text-red-500">
+	<span class="font-medium">
+		@if (ListaErrores != null && ListaErrores.Count > 0)
+		{
+			foreach (var error in ListaErrores)
+			{
+				<span>@error</span> <br />
+			}
+		}
+	</span>
+</p>
+
+@code {
+	[Parameter] public List<string> ListaErrores { get; set; }
+
+}

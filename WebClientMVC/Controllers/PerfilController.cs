@@ -50,7 +50,7 @@ public class PerfilController : MainController
         var model = _viewModelFactory.Create<PerfilViewModel>();
 
         model.IncluirBlazorComponents = true;
-        //model.ListaModulos = (await _appServices.ModuloService.GetAll(new FilterDTO())).Data;
+        model.ListaModulos = (await _appServices.ModuloService.GetAll(new FilterDTO())).Data;
 
         if (id != 0)
             model.Perfil = await _appServices.PerfilService.GetById(id);

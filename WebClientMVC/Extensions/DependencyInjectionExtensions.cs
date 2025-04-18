@@ -6,6 +6,7 @@ using WebClientMVC.Common.Middlewares;
 using Domain.Constants;
 using Domain.Interfaces.Services.Segurity;
 using WebClientMVC.Services.Segurity;
+using FluentValidation;
 
 namespace WebClientMVC.Extensions;
 
@@ -20,10 +21,12 @@ public static class DependencyInjectionExtensions
             client.Timeout = TimeSpan.FromSeconds(configs.General.ServiceTimeout);
         }).AddHttpMessageHandler<AppServicesAuthorizationHandler>();
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         #region Services
         services.AddScoped<IAppServices, AppServices>();
-        
+
         services.AddScoped<ISesionService, SesionService>();
         services.AddScoped<IPerfilService, PerfilService>();
         services.AddScoped<IModuloService, ModuloService>();

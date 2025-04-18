@@ -35,60 +35,60 @@ public partial class MainBaseComponent : ComponentBase
         User = await GetAuth();
     }
 
-    //public async Task ShowSuccessMessage(string message)
-    //{
-    //    await JSRuntime.InvokeVoidAsync("Message.success", message);
-    //}
+    public async Task ShowSuccessMessage(string message)
+    {
+        await JSRuntime.InvokeVoidAsync("window.showSuccessMessage", message);
+    }
 
-    //public async Task ShowInfoMessage(string message)
-    //{
-    //    await JSRuntime.InvokeVoidAsync("Message.info", message);
-    //}
+    public async Task ShowInfoMessage(string message)
+    {
+        await JSRuntime.InvokeVoidAsync("window.ShowInfoMessage", message);
+    }
 
-    //public async Task ShowWarnMessage(string message)
-    //{
-    //    await JSRuntime.InvokeVoidAsync("Message.warn", message);
-    //}
+    public async Task ShowWarnMessage(string message)
+    {
+        await JSRuntime.InvokeVoidAsync("window.ShowWarnMessage", message);
+    }
 
-    //public async Task ShowErrorMessage(string message)
-    //{
-    //    await JSRuntime.InvokeVoidAsync("Message.error", message);
-    //}
+    public async Task ShowErrorMessage(string message)
+    {
+        await JSRuntime.InvokeVoidAsync("window.showErrorMessage", message);
+    }
 
-    //public async Task ShowErrorMessage(Exception ex)
-    //{
-    //    string message = $"<p>{ex.Message}</p>";
-    //    string errorDetails = "";
+    public async Task ShowErrorMessage(Exception ex)
+    {
+        string message = $"<p>{ex.Message}</p>";
+        string errorDetails = "";
 
-    //    if (ex != null)
-    //    {
-    //        string clientDetails = "";
-    //        string diagnosticDetails = "";
+        if (ex != null)
+        {
+            string clientDetails = "";
+            string diagnosticDetails = "";
 
-    //        string details =
-    //            @$"
-    //                <div class='card full-details collapsed-card'>
-    //                    <div class='card-header'>
-    //                        <p class='card-title'>Detalles del error</p>
-    //                        <button type='button' class='btn btn-tool' data-card-widget='collapse'>
-    //                            <i class='fas fa-plus'></i>
-    //                        </button>
-    //                    </div>
-    //                    <div class='card-body'>
-    //                        <p><label>Mensaje: </label> {ex.Message}</p>
-    //                        <p><label>Diagnostico: </label> {ex.Message}</p>
-    //                        </br>
-    //                        <p><label>Detalle: </label></p>
-    //                        </br>
-    //                        {diagnosticDetails}
-    //                        <p><label>Pila de Error: </label></p>
-    //                        <p>{ex.StackTrace}</p>
-    //                    </div>
-    //                </div>";
+            string details =
+                @$"
+                    <div class='card full-details collapsed-card'>
+                        <div class='card-header'>
+                            <p class='card-title'>Detalles del error</p>
+                            <button type='button' class='btn btn-tool' data-card-widget='collapse'>
+                                <i class='fas fa-plus'></i>
+                            </button>
+                        </div>
+                        <div class='card-body'>
+                            <p><label>Mensaje: </label> {ex.Message}</p>
+                            <p><label>Diagnostico: </label> {ex.Message}</p>
+                            </br>
+                            <p><label>Detalle: </label></p>
+                            </br>
+                            {diagnosticDetails}
+                            <p><label>Pila de Error: </label></p>
+                            <p>{ex.StackTrace}</p>
+                        </div>
+                    </div>";
 
-    //        errorDetails += $"<div class='col-12'>{details}</div>";
-    //    }
+            errorDetails += $"<div class='col-12'>{details}</div>";
+        }
 
-    //    await JSRuntime.InvokeVoidAsync("Message.error", message + errorDetails);
-    //}
+        await JSRuntime.InvokeVoidAsync("window.showErrorMessage", message + errorDetails);
+    }
 }

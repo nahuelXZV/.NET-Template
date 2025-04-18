@@ -7,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Segurity.Profile.Commands;
 
-public class UpdateProfileCommand : ICommand<Response<long>>
+public class UpdateProfileCommand : ICommand<Response<bool>>
 {
     public required PerfilDTO PerfilDTO { get; set; }
 }
 
-public class UpdateProfileCommandHandler : ICommandHandler<UpdateProfileCommand, Response<long>>
+public class UpdateProfileCommandHandler : ICommandHandler<UpdateProfileCommand, Response<bool>>
 {
     private readonly IMapper _mapper;
     private readonly IRepository<Perfil> _repository;
@@ -25,7 +25,7 @@ public class UpdateProfileCommandHandler : ICommandHandler<UpdateProfileCommand,
         _perfilAccesoRepository = perfilAccesoRepository;
     }
 
-    public async Task<Response<long>> Handle(UpdateProfileCommand request, CancellationToken cancellationToken)
+    public async Task<Response<bool>> Handle(UpdateProfileCommand request, CancellationToken cancellationToken)
     {
         var perfil = await _repository.GetByIdAsync(request.PerfilDTO.Id);
         if (perfil == null) throw new Exception("Perfil no encontrado.");
@@ -39,6 +39,6 @@ public class UpdateProfileCommandHandler : ICommandHandler<UpdateProfileCommand,
 
         await _repository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
-        return new Response<long>(perfil.Id);
+        return new Response<bool>(true);
     }
 }

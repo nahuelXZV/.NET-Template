@@ -22,19 +22,19 @@ public class PerfilController : MainController
     }
 
     [HttpGet("{idProfile}")]
-    public async Task<IActionResult> Get(long idProfile)
+    public async Task<IActionResult> GetById(long idProfile)
     {
         return Ok(await Mediator.Send(new GetProfileByIdQuery() { Id = idProfile }));
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(PerfilDTO perfil)
+    public async Task<IActionResult> Create(PerfilDTO perfil)
     {
         return Ok(await Mediator.Send(new CreateProfileCommand { PerfilDTO = perfil }));
     }
 
     [HttpPut]
-    public async Task<IActionResult> Put(PerfilDTO perfil)
+    public async Task<IActionResult> Update(PerfilDTO perfil)
     {
         return Ok(await Mediator.Send(new UpdateProfileCommand { PerfilDTO = perfil }));
     }

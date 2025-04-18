@@ -14,7 +14,7 @@ public class PerfilService : AppBaseServices, IPerfilService
 
     public async Task<long> Create(PerfilDTO perfil)
     {
-        var uri = $"Create";
+        var uri = $"";
         return await PostAsync<long>(uri, perfil);
     }
 
@@ -32,13 +32,13 @@ public class PerfilService : AppBaseServices, IPerfilService
 
     public async Task<PerfilDTO> GetById(long id)
     {
-        var uri = $"GetById/{id}";
+        var uri = $"{id}";
         return await GetAsync<PerfilDTO>(uri);
     }
 
     public async Task<bool> Update(PerfilDTO perfil)
     {
-        var uri = $"Update";
+        var uri = $"";
         return await PutAsync<bool>(uri, perfil);
     }
 }
