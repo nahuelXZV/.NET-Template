@@ -1,6 +1,6 @@
 ﻿using Domain.DTOs.Segurity;
 
-namespace WebClient.Models;
+namespace WebClient.Models.Segurity;
 
 public class PerfilViewModel : MainViewModel
 {

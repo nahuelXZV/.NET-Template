@@ -1,11 +1,12 @@
 ﻿@typeparam TItem
+@typeparam TValue
 
 <div>
 	<label for="@Id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@Label</label>
 	<select id="@Id"
 			class="@SelectClass"
 			@onchange="OnValueChanged"
-			value="@Convert.ToString(Value)"
+			value="@FormatValue(Value)"
 			required="@Required">
 		@if (!string.IsNullOrEmpty(Placeholder))
 		{
@@ -13,7 +14,7 @@
 		}
 		@foreach (var item in Options)
 		{
-			<option value="@GetValue(item)">
+			<option value="@FormatValue(GetValue(item))">
 				@GetText(item)
 			</option>
 		}
@@ -28,15 +29,27 @@
 	[Parameter] public string SelectClass { get; set; } = "block w-full p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
 
 	[Parameter] public IEnumerable<TItem> Options { get; set; }
+	[Parameter] public Func<TItem, TValue> GetValue { get; set; }
 	[Parameter] public Func<TItem, string> GetText { get; set; }
-	[Parameter] public Func<TItem, string> GetValue { get; set; }
 
-	[Parameter] public string Value { get; set; }
-	[Parameter] public EventCallback<string> ValueChanged { get; set; }
+	[Parameter] public TValue Value { get; set; }
+	[Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+
+	private string FormatValue(TValue value)
+	{
+		return value?.ToString() ?? "";
+	}
 
 	private async Task OnValueChanged(ChangeEventArgs e)
 	{
-		Value = e.Value?.ToString();
-		await ValueChanged.InvokeAsync(Value);
+		string selectedValue = e.Value?.ToString();
+
+		// Buscar el item que coincida con el string seleccionado
+		var selectedItem = Options.FirstOrDefault(item => FormatValue(GetValue(item)) == selectedValue);
+		if (selectedItem != null)
+		{
+			Value = GetValue(selectedItem);
+			await ValueChanged.InvokeAsync(Value);
+		}
 	}
 }

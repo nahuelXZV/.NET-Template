@@ -21,7 +21,7 @@ public static class DependencyInjectionExtensions
             client.Timeout = TimeSpan.FromSeconds(configs.General.ServiceTimeout);
         }).AddHttpMessageHandler<AppServicesAuthorizationHandler>();
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        
+
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         #region Services
@@ -30,6 +30,7 @@ public static class DependencyInjectionExtensions
         services.AddScoped<ISesionService, SesionService>();
         services.AddScoped<IPerfilService, PerfilService>();
         services.AddScoped<IModuloService, ModuloService>();
+        services.AddScoped<IUsuarioService, UsuarioService>();
         #endregion
 
         return services;

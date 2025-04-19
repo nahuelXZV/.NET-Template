@@ -1,5 +1,4 @@
 ﻿using Domain.Interfaces.Services.Segurity;
-using WebClient.Services;
 
 namespace WebClient.Services.Implementacion;
 
@@ -12,6 +11,7 @@ public class AppServices : IAppServices
     private ISesionService _sesionService;
     private IPerfilService _perfilService;
     private IModuloService _moduloService;
+    private IUsuarioService _usuarioService;
 
     public AppServices(IServiceProvider serviceProvider, ILogger<AppServices> logger)
     {
@@ -19,9 +19,14 @@ public class AppServices : IAppServices
         _logger = logger;
     }
 
+    #region SEGURITY
     public ISesionService SesionService => _sesionService ??= _serviceProvider.GetService<ISesionService>();
-
     public IPerfilService PerfilService => _perfilService ??= _serviceProvider.GetService<IPerfilService>();
-
     public IModuloService ModuloService => _moduloService ??= _serviceProvider.GetService<IModuloService>();
+    public IUsuarioService UsuarioService => _usuarioService ??= _serviceProvider.GetService<IUsuarioService>();
+    #endregion
+
+    #region CONFIGURACION
+
+    #endregion
 }

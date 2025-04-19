@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using WebClient.Components.Shared.Base;
 
-namespace WebClient.Components.Configuration.Perfil;
+namespace WebClient.Components.Segurity.Perfil;
 
 public partial class PerfilCreateComponent
 {

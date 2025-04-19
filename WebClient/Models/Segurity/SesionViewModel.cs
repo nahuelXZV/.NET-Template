@@ -4,7 +4,7 @@ using WebClient.Configs;
 using WebClient.Extensions;
 using WebClient.Extensions;
 
-namespace WebClient.Models;
+namespace WebClient.Models.Segurity;
 
 public class SesionViewModel
 {

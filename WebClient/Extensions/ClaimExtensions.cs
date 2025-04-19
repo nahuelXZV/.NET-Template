@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using System.Security.Principal;
 using WebClient.Common;
-using WebClient.Models;
+using WebClient.Models.Segurity;
 
 namespace WebClient.Extensions;
 

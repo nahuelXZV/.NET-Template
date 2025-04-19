@@ -1,11 +1,13 @@
 ﻿using Domain.DTOs.Segurity;
+using Domain.DTOs.Shared;
 using Microsoft.AspNetCore.Mvc;
+using WebClient.Extensions;
 using WebClient.Models;
+using WebClient.Models.Segurity;
 using WebClient.Services;
 
 namespace WebClient.Controllers;
 
-[Route("Usuario")]
 public class UsuarioController : MainController
 {
     private readonly ILogger<UsuarioController> _logger;
@@ -16,7 +18,7 @@ public class UsuarioController : MainController
         _logger = logger;
     }
 
-    [HttpGet("Listado")]
+    [HttpGet]
     public async Task<IActionResult> Listado()
     {
         var model = _viewModelFactory.Create<UsuarioViewModel>();
@@ -24,40 +26,55 @@ public class UsuarioController : MainController
         return View(model);
     }
 
-
-    // metodo fake para obtener un listado, filtrado y paginado
-    [HttpGet("getAll")]
+    [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] string search = "", [FromQuery] int limit = 10, [FromQuery] int offset = 0)
     {
-        var usuarios = new List<UsuarioDTO>
+        try
         {
-            new UsuarioDTO { Id = 1, Username = "jperez", Nombre = "Juan", Apellido = "Perez", Email = "juan@example.com", PerfilId = 1, Perfil = new PerfilDTO { Id = 1, Nombre = "Admin" } },
-            new UsuarioDTO { Id = 2, Username = "mlopez", Nombre = "Maria", Apellido = "Lopez", Email = "maria@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } },
-            new UsuarioDTO { Id = 3, Username = "pgonzalez", Nombre = "Pedro", Apellido = "Gonzalez", Email = "pedro@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } },
-            new UsuarioDTO { Id = 4, Username = "lramos", Nombre = "Lucia", Apellido = "Ramos", Email = "lucia@example.com", PerfilId = 1, Perfil = new PerfilDTO { Id = 1, Nombre = "Admin" } },
-            new UsuarioDTO { Id = 5, Username = "cdiaz", Nombre = "Carlos", Apellido = "Diaz", Email = "carlos@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } },
-            new UsuarioDTO { Id = 5, Username = "cdiaz", Nombre = "Carlos", Apellido = "Diaz", Email = "carlos@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } },
-            new UsuarioDTO { Id = 5, Username = "cdiaz", Nombre = "Carlos", Apellido = "Diaz", Email = "carlos@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } },
-            new UsuarioDTO { Id = 5, Username = "cdiaz", Nombre = "Carlos", Apellido = "Diaz", Email = "carlos@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } },
-            new UsuarioDTO { Id = 5, Username = "cdiaz", Nombre = "Carlos", Apellido = "Diaz", Email = "carlos@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } },
-            new UsuarioDTO { Id = 5, Username = "cdiaz", Nombre = "Carlos", Apellido = "Diaz", Email = "carlos@example.com", PerfilId = 2, Perfil = new PerfilDTO { Id = 2, Nombre = "Usuario" } }
-        };
+            var ListaUsuarios = await _appServices.UsuarioService.GetAll(new FilterDTO()
+            {
+                Limit = limit,
+                Offset = offset,
+                Search = search
+            });
 
-        var filtrados = string.IsNullOrWhiteSpace(search)
-            ? usuarios
-            : usuarios.Where(u =>
-                u.Nombre.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                u.Apellido.Contains(search, StringComparison.OrdinalIgnoreCase) ||
-                u.Email.Contains(search, StringComparison.OrdinalIgnoreCase))
-            .ToList();
-
-        var resultado = filtrados.Skip(offset).Take(limit).ToList();
-
-        return Ok(new
+            return Ok(ListaUsuarios);
+        }
+        catch
         {
-            Total = filtrados.Count,
-            Data = resultado
-        });
+            return Ok(new ResponseFilterDTO<UsuarioDTO>() { Total = 0, Data = new() });
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Crear([FromForm] long id = 0)
+    {
+        var model = _viewModelFactory.Create<UsuarioViewModel>();
+
+        model.IncluirBlazorComponents = true;
+        model.ListaPerfiles = (await _appServices.PerfilService.GetAll(new FilterDTO())).Data;
+
+        if (id != 0)
+            model.Usuario = await _appServices.UsuarioService.GetById(id);
+        else
+            model.Usuario = new();
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Eliminar([FromForm] long id)
+    {
+        try
+        {
+            await _appServices.UsuarioService.Delete(id);
+            this.AddSuccessTempMessage("Usuario eliminado correctamente");
+        }
+        catch (Exception ex)
+        {
+            this.AddTempMessage(ex);
+        }
+        return RedirectToAction("Listado");
     }
 
 

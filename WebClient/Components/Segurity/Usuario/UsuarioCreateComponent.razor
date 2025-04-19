@@ -1,0 +1,100 @@
+﻿@using Domain.DTOs.Segurity;
+@using WebClient.Components
+@using WebClient.Components.Shared.Elements
+@inherits Components.MainBaseComponent;
+
+
+<div class="grid grid-cols-12 gap-2 p-2">
+	<IUCard CustomClass="col-span-12">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Datos del usuario</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-4 md:grid-cols-12 gap-2">
+				<div class="col-span-4 md:col-span-4">
+					<IUInputText Label="Nombre"
+								 Placeholder="Escriba el nombre..."
+								 @bind-Value="Usuario.Nombre"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Usuario.Nombre)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Nombre))" />
+					}
+				</div>
+				<div class="col-span-4 md:col-span-4">
+					<IUInputText Label="Apellido"
+								 Placeholder="Escriba el apellido..."
+								 @bind-Value="Usuario.Apellido"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Usuario.Apellido)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Apellido))" />
+					}
+				</div>
+				<div class="col-span-4 md:col-span-4">
+					<IUInputText Label="Username"
+								 Placeholder="Escriba el username..."
+								 @bind-Value="Usuario.Username"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Usuario.Username)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Username))" />
+					}
+				</div>
+
+				<div class="col-span-4 md:col-span-4">
+					<IUInputText Label="Correo"
+								 Placeholder="Escriba el correo..."
+								 @bind-Value="Usuario.Email"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Usuario.Email)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Email))" />
+					}
+				</div>
+
+				<div class="col-span-4 md:col-span-4">
+					<IUSelect TItem="PerfilDTO"
+							  TValue="long"
+							  Label="Selecciona un perfil"
+							  Placeholder="Escoge un perfil"
+							  Options="@ListaPerfiles"
+							  GetText="@(c => c.Nombre)"
+							  GetValue="@(c => c.Id)"
+							  @bind-Value="Usuario.PerfilId"
+							  Required="true" />
+					@if (_validatorHelper.TieneErrores(nameof(Usuario.PerfilId)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.PerfilId))" />
+					}
+				</div>
+				<div class="col-span-4 md:col-span-4"></div>
+
+				@if (Usuario.Id != 0)
+				{
+					<div class="col-span-4 md:col-span-4">
+						<label class="hidden md:invisible mb-2 text-sm font-medium">Check</label>
+						<IUInputCheckbox Label="Modificar Contraseña"
+										 @bind-Value="ModificarContraseña" />
+					</div>
+				}
+
+
+				@if (ModificarContraseña || Usuario.Id == 0)
+				{
+					<div class="col-span-4 md:col-span-4">
+						<IUInputPassword Label="Contraseña"
+										 Placeholder="Escriba la contraseña..."
+										 @bind-Value="Usuario.Password"
+										 Required=true />
+						@if (_validatorHelper.TieneErrores(nameof(Usuario.Password)))
+						{
+							<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Usuario.Password))" />
+						}
+					</div>
+				}
+			</div>
+		</Body>
+	</IUCard>
+</div>

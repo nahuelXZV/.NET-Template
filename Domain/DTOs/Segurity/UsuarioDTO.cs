@@ -1,4 +1,6 @@
-﻿namespace Domain.DTOs.Segurity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.DTOs.Segurity;
 
 public class UsuarioDTO
 {
@@ -11,6 +13,7 @@ public class UsuarioDTO
     public long PerfilId { get; set; }
 
     public string? Token { get; set; }
-    
-    public PerfilDTO Perfil { get; set; }
+
+    [NotMapped]
+    public PerfilDTO? Perfil { get; set; }
 }

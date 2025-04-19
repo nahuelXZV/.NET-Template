@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebClient.Common;
 using WebClient.Extensions;
 using WebClient.Models;
+using WebClient.Models.Segurity;
 using WebClient.Services;
 
 namespace WebClient.Controllers;

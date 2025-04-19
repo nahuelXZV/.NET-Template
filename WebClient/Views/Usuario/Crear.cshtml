@@ -1,20 +1,20 @@
 ﻿@using WebClient.Common
 @using WebClient.Components
-@using WebClient.Components.Segurity.Perfil
+@using WebClient.Components.Segurity.Usuario
 @using WebClient.Models.Segurity
-@model PerfilViewModel
+@model UsuarioViewModel
 
 @{
-	ViewData["Title"] = "Perfil";
-	ViewData["Module"] = "Perfil";
+	ViewData["Title"] = "Usuario";
+	ViewData["Module"] = "Usuario";
 	ViewData["Action"] = "Crear";
-	ViewData["Url"] = Url.Action("Listado", "Perfil");
+	ViewData["Url"] = Url.Action("Listado", "Usuario");
 
-	var componentName = nameof(PerfilCreateComponent);
+	var componentName = nameof(UsuarioCreateComponent);
 	var componentParameters = new Dictionary<string, object>
 	{
-		{ nameof(PerfilCreateComponent.Perfil), Model.Perfil  },
-		{ nameof(PerfilCreateComponent.ListaModulos), Model.ListaModulos  },
+		{ nameof(UsuarioCreateComponent.Usuario), Model.Usuario  },
+		{ nameof(UsuarioCreateComponent.ListaPerfiles), Model.ListaPerfiles  },
 	};
 }
 <script>
@@ -43,7 +43,7 @@
 
 @section ContentHeader {
 	<div class="inline-flex rounded-md shadow-xs" role="group">
-		<a href="@Url.Action("Listado","Perfil")" class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700">
+		<a href="@Url.Action("Listado","Usuario")" class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700">
 			<i class="fa fa-reply mr-1"></i>
 			Volver
 		</a>
@@ -55,7 +55,7 @@
 }
 
 <component type="typeof(MainComponent)"
-		   param-ComponentTypeName="typeof(PerfilCreateComponent).FullName"
+		   param-ComponentTypeName="typeof(UsuarioCreateComponent).FullName"
 		   param-Parameters="@componentParameters"
 		   render-mode="ServerPrerendered" />
 

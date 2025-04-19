@@ -42,6 +42,7 @@ public class IniciarSesionCommandHandler : ICommandHandler<LoginCommand, Respons
             ExpireTime = Convert.ToInt32(_configuracion["Jwt:ExpireTime"])
         };
         usuario.Token = JwtHelper.GenerateJwtToken(usuario, jwtConfig);
+        usuario.Password = string.Empty;
         return new Response<UsuarioDTO>(usuario);
     }
 }

@@ -1,27 +1,33 @@
 ﻿@using WebClient.Common
 @using WebClient.Models
-@using WebClient.Common
+@using WebClient.Models.Segurity
 @model UsuarioViewModel
 
 @{
 	ViewData["Title"] = "Usuario";
 	ViewData["Module"] = "Usuario";
 	ViewData["Action"] = "Listado";
+	ViewData["Url"] = Url.Action("Listado", "Usuario");
 
 	Model.ListaItemsMenu = new List<ItemMenu>
 	{
-		new ItemMenu { Id = MenuItemId.Editar, Text = "Editar", IconCss = "fa fa-pencil", Url = Url.Action("Crear", "Usuario"), ActionType = MenuItemActionType.GET },
 		new ItemMenu { Id = MenuItemId.Editar, Text = "Editar", IconCss = "fa fa-pencil", Url = Url.Action("Crear", "Usuario"), ActionType = MenuItemActionType.POST },
-		new ItemMenu { Id = MenuItemId.Eliminar, Text = "Eliminar", IconCss = "fa fa-trash", Url = Url.Action("Eliminar", "Usuario"), ActionType = MenuItemActionType.POST, Confirm = true, ConfirmMessage = "Esta seguro de eliminar este paciente?" },
+		new ItemMenu { Id = MenuItemId.Eliminar, Text = "Eliminar", IconCss = "fa fa-trash", Url = Url.Action("Eliminar", "Usuario"), ActionType = MenuItemActionType.POST, Confirm = true, ConfirmMessage = "Esta seguro de eliminar este usuario?" },
 	};
 }
 
 @section ContentHeader {
-	<nav class="flex w-min">
-	</nav>
+	<div class="inline-flex rounded-md shadow-xs" role="group">
+		<form id="FormCrear" action="/Usuario/Crear" method="post">@Html.AntiForgeryToken()</form>
+		<button form="FormCrear" type="submit" class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700">
+			<i class="fa fa-plus mr-1"></i>
+			Crear
+		</button>
+	</div>
 }
+
 <div class="rounded-2xl border border-gray-200 bg-white px-3 py-3">
-	<div id="table-wrapper"></div>
+	<div id="table-wrapper" class=""></div>
 </div>
 
 @section Scripts {
