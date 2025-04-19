@@ -1,0 +1,24 @@
+﻿@using WebClient.Models
+@model MainViewModel;
+<environment include="Development,Staging,Production">
+	<script>
+		const rootUrl = new URL("@Url.Content("~/")", document.baseURI);
+		const urlWeb = "@(Model.Configuraciones?.General.WebUrl ?? "")";
+
+		window.blazorComponentsInstances = new Map();
+	</script>
+</environment>
+
+
+@if (Model.IncluirBlazorComponents)
+{
+	<script src="@Url.Content("~/_framework/blazor.server.js")" autostart="false"></script>
+	<script src="~/js/blazor-init.js" asp-append-version="true"></script>
+
+}
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+<script src="~/js/bundle.js" asp-append-version="true"></script>
+<script src="~/js/tableHandler.js" asp-append-version="true"></script> 

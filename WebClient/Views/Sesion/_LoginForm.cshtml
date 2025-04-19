@@ -1,0 +1,41 @@
+﻿@using WebClient.Models
+@model SesionViewModel;
+
+<div class="flex flex-col flex-1 w-full lg:w-1/2" style="background-color: white;">
+	<div class="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
+		<div class="rounded-2xl border border-gray-200 bg-white px-5 py-7 dark:border-gray-800 dark:bg-white/[0.03] xl:px-10 xl:py-12">
+			<div>
+				<div class="mb-5 sm:mb-8">
+					<h1 class="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
+						Iniciar Sesion
+					</h1>
+					<p class="text-sm text-gray-500 dark:text-gray-400">
+						Ingresa tu usuario y contraseña.
+					</p>
+				</div>
+				<div>
+					<div class="space-y-5">
+						<form asp-controller="Sesion" asp-action="Iniciar" class="max-w-sm mx-auto">
+							<input type="hidden" asp-for="RedirectUrl" />
+							<div class="mb-5">
+								<label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Usuario</label>
+								<input type="text" id="text" asp-for="Usuario" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="usuario" required />
+								<span asp-validation-for="Usuario" class="text-danger"></span>
+							</div>
+							<div class="mb-5">
+								<label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contraseña</label>
+								<input type="password" id="password" asp-for="Password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+								<span asp-validation-for="Password" class="text-danger"></span>
+							</div>
+							<div>
+								<button type="submit" class="flex items-center justify-center w-full px-4 py-3 text-sm font-medium text-white transition rounded-lg bg-brand-500 shadow-theme-xs hover:bg-brand-600">
+									Ingresar
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

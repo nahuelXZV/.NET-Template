@@ -1,0 +1,46 @@
+﻿@using WebClient.Common
+@using WebClient.Models
+@using WebClient.Common
+@model UsuarioViewModel
+
+@{
+	ViewData["Title"] = "Usuario";
+	ViewData["Module"] = "Usuario";
+	ViewData["Action"] = "Listado";
+
+	Model.ListaItemsMenu = new List<ItemMenu>
+	{
+		new ItemMenu { Id = MenuItemId.Editar, Text = "Editar", IconCss = "fa fa-pencil", Url = Url.Action("Crear", "Usuario"), ActionType = MenuItemActionType.GET },
+		new ItemMenu { Id = MenuItemId.Editar, Text = "Editar", IconCss = "fa fa-pencil", Url = Url.Action("Crear", "Usuario"), ActionType = MenuItemActionType.POST },
+		new ItemMenu { Id = MenuItemId.Eliminar, Text = "Eliminar", IconCss = "fa fa-trash", Url = Url.Action("Eliminar", "Usuario"), ActionType = MenuItemActionType.POST, Confirm = true, ConfirmMessage = "Esta seguro de eliminar este paciente?" },
+	};
+}
+
+@section ContentHeader {
+	<nav class="flex w-min">
+	</nav>
+}
+<div class="rounded-2xl border border-gray-200 bg-white px-3 py-3">
+	<div id="table-wrapper"></div>
+</div>
+
+@section Scripts {
+	<script>
+		new gridjs.Grid({
+			columns: ['Id', 'Nombre', "Apellido", "Correo",
+				{
+					name: 'Acciones',
+					formatter: (cell, row) => gridjs.html(this.menuTableHandler(row._cells[0].data))
+				}
+			],
+			server: {
+			  url: urlWeb + "Usuario/GetAll",
+			  then: data => data.data.map(usuario => [
+				usuario.id, usuario.nombre, usuario.apellido, usuario.email
+			  ]),
+			  total: data => data.total
+			},
+			...this.optionsTable
+		}).render(document.getElementById("table-wrapper"));
+	</script>
+}

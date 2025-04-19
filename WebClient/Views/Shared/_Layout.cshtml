@@ -1,0 +1,63 @@
+﻿@using WebClient.Models
+@model MainViewModel;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>@ViewData["Title"]</title>
+	<meta name="route" content="@Url.RouteUrl("")" />
+	<base href="~/" />
+	<partial name="_Styles" />
+
+	@RenderSection("Styles", required: false)
+</head>
+<body x-data="{ page: 'ecommerce', 'loaded': true, 'darkMode': false, 'stickyMenu': false, 'sidebarToggle': false, 'scrollTop': false }"
+	  x-init="darkMode=JSON.parse(localStorage.getItem('darkMode'));$watch('darkMode', value=>localStorage.setItem('darkMode', JSON.stringify(value)))"
+	  :class="{'dark bg-gray-900': darkMode === true}">
+	<partial name="_Preloader" />
+
+	@if (Model.IncluirBlazorComponents)
+	{
+		<div id="reconnectBlazor" class="blazor-message" style="display: none;">
+			<div class="background"></div>
+			<div class="content">
+				<p class="message-container">Se perdió la conexión con el servidor, reconectando...</p>
+				<button type="button" title="Cancelar reconección" class="btn btn-primary">Cancelar</button>
+			</div>
+		</div>
+	}
+
+	<div class="flex h-screen overflow-hidden">
+		<partial name="_Sidebar" />
+
+		<div class="relative flex flex-col flex-1 overflow-x-hidden overflow-y-auto">
+			<partial name="_Navbar" />
+
+			<main>
+				<div class="mx-auto max-w-(--breakpoint-2xl) p-3 md:p-6">
+					<div class="mb-3 rounded-2xl border border-gray-200 bg-white px-3 py-3 dark:border-gray-800 dark:bg-white/[0.03] xl:px-4 xl:py-4">
+						@RenderSection("ContentHeader", required: false)
+					</div>
+
+					<div>
+						@RenderBody()
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+	<partial name="_TempMessagesDialog" />
+	<partial name="_ModalConfirmacion" />
+	<script>
+		const tempMessages = @Json.Serialize(Model.Messages);
+		const menuItems = @Json.Serialize(Model.ListaItemsMenu);
+	</script>
+
+	<partial name="_Scripts" />
+	@RenderSection("PreScripts", required: false)
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

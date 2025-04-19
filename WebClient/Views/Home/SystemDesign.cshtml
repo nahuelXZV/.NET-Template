@@ -1,0 +1,26 @@
+﻿@using WebClient.Components
+@using WebClient.Components.Shared.Elements
+
+@{
+	ViewData["Title"] = "System Design";
+	ViewData["Module"] = "Configuration";
+	ViewData["Action"] = "Listado";
+	ViewData["Url"] = Url.Action("Index", "Home");
+	var componentParameters = new Dictionary<string, object> { };
+}
+
+@section Styles {
+
+}
+
+@section ContentHeader {
+	<nav class="flex">
+
+	</nav>
+}
+<div class="rounded-2xl border border-gray-200 bg-white px-3 py-3">
+	<component type="typeof(MainComponent)"
+			   param-ComponentTypeName="typeof(SystemDesign).FullName"
+			   param-Parameters="@componentParameters"
+			   render-mode="ServerPrerendered" />
+</div>

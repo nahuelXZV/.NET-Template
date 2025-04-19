@@ -1,0 +1,62 @@
+﻿@using WebClient.Components
+@using WebClient.Components.Shared.Elements
+@inherits Components.MainBaseComponent;
+
+<div class="grid grid-cols-5 md:grid-cols-12 gap-2 p-2">
+	<IUCard CustomClass="col-span-5 md:col-span-4">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Datos del perfil</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-6 gap-2">
+				<div class="col-span-6">
+					<IUInputText Label="Nombre"
+								 Placeholder="Escriba el nombre del perfil..."
+								 @bind-Value="Perfil.Nombre"
+								 Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Perfil.Nombre)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Perfil.Nombre))" />
+					}
+				</div>
+				<div class="col-span-6">
+					<IUTextArea Label="Descripcion"
+								Placeholder="Escriba una pequeña descripcion..."
+								@bind-Value="Perfil.Descripcion"
+								Required=true />
+					@if (_validatorHelper.TieneErrores(nameof(Perfil.Descripcion)))
+					{
+						<IULabelError ListaErrores="@_validatorHelper.GetErrores(nameof(Perfil.Descripcion))" />
+					}
+				</div>
+			</div>
+		</Body>
+	</IUCard>
+
+	<IUCard CustomClass="col-span-5 md:col-span-8">
+		<Header>
+			<h3 class="text-lg font-semibold text-gray-900">Accesos disponibles</h3>
+		</Header>
+
+		<Body>
+			<div class="grid grid-cols-4 md:grid-cols-12 gap-2">
+				@foreach (var modulo in ListaModulos)
+				{
+					<div class="col-span-6 md:col-span-4">
+						<h4>@modulo.Nombre</h4>
+						<div class="ml-2">
+							@foreach (var acceso in modulo.ListaAccesos)
+							{
+								var isChecked = ListaAccesosSeleccionados.Contains(acceso.Id);
+								<IUInputCheckbox Label="@acceso.Nombre"
+												 Value="@isChecked"
+												 ValueChanged="@(value => OnAccesoSeleccionChanged(acceso.Id, value))" />
+							}
+						</div>
+					</div>
+				}
+			</div>
+		</Body>
+	</IUCard>
+</div>

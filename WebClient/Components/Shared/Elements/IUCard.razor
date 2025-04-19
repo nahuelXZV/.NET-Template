@@ -1,0 +1,29 @@
+﻿
+<div class="@($"rounded-2xl border border-gray-200 bg-white px-4 py-5 {CustomClass}")">
+	@if (Header != null)
+	{
+		<div class="mb-4">
+			@Header
+		</div>
+	}
+
+	<div>
+		@Body
+	</div>
+
+	@if (Footer != null)
+	{
+		<div class="mt-4">
+			@Footer
+		</div>
+	}
+</div>
+
+@code {
+	[Parameter] public RenderFragment Header { get; set; }
+	[Parameter] public RenderFragment Body { get; set; }
+	[Parameter] public RenderFragment Footer { get; set; }
+
+	// Este parámetro te permite pasar clases adicionales.
+	[Parameter] public string CustomClass { get; set; } = "";
+}
