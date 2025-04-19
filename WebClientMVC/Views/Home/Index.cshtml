@@ -4,6 +4,8 @@
 	ViewData["Title"] = "Home Page";
 	ViewData["Module"] = "Home";
 	ViewData["Action"] = "Dashboard";
+	ViewData["Url"] = Url.Action("Index", "Home");
+
 	var componentName = nameof(HomeComponent);
 	var componentParameters = new Dictionary<string, object>
 	{

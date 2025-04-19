@@ -1,5 +1,4 @@
-﻿using System.Net.Sockets;
-using Domain.DTOs.Segurity;
+﻿using Domain.DTOs.Segurity;
 using FluentValidation;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -97,6 +96,4 @@ public partial class PerfilCreateComponent
             await ShowErrorMessage(ex.Message);
         }
     }
-
-
 }

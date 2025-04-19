@@ -24,6 +24,13 @@ public class HomeController : MainController
         return View(model);
     }
 
+    public IActionResult SystemDesign()
+    {
+        var model = _viewModelFactory.Create<HomeViewModel>();
+        model.IncluirBlazorComponents = true;
+        return View(model);
+    }
+
     public IActionResult Privacy()
     {
         return View();
