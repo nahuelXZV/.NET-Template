@@ -52,8 +52,10 @@ public partial class UsuarioCreateComponent
     [JSInvokable]
     public async Task Guardar()
     {
+        if (!ModificarContraseña && Usuario.Id != 0) Usuario.Password = "temp";
         if (!await _validatorHelper.Validar(Usuario))
         {
+            if (!ModificarContraseña && Usuario.Id != 0) Usuario.Password = string.Empty;
             StateHasChanged(); return;
         }
 

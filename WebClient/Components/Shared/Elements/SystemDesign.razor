@@ -1,34 +1,114 @@
-﻿<div>
-	<label for="@Id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">@Label</label>
-	<textarea id="@Id"
-			  class="@TextAreaClass"
-			  placeholder="@Placeholder"
-			  rows="@Rows"
-			  @onchange="OnChange"
-			  value="@Value"
-			  required="@Required"
-			  readonly="@Readonly"></textarea>
+﻿@using WebClient.Components.Shared.Elements
+
+
+<p>FORMS</p>
+<div class="grid grid-cols-12 gap-4 mt-4">
+
+	<div class="col-span-4">
+		<IUInputText Label="Company Name"
+					 Placeholder="Enter your company"
+					 @bind-Value="companyName"
+					 Required="true" />
+		<p class="mt-2 text-sm text-gray-600">Valor: @companyName</p>
+	</div>
+	<div class="col-span-4">
+		<IUInputNumeric Label="Value Price"
+						Placeholder="Enter your company"
+						@bind-Value="price"
+						Required="true" />
+		<p class="mt-2 text-sm text-gray-600">Valor: @price</p>
+	</div>
+	<div class="col-span-4">
+		<IUSelect TItem="CountryModel"
+				  TValue="string"
+				  Label="Select a country"
+				  Placeholder="Choose a country"
+				  Options="@countryList"
+				  GetText="@(c => c.Name)"
+				  GetValue="@(c => c.Name)"
+				  @bind-Value="selectedCountryCode"
+				  Required="true" />
+
+		<p class="mt-2 text-sm text-gray-600">Seleccionado: @selectedCountryCode</p>
+	</div>
+
+	<div class="col-span-4">
+		<IUTextArea Label="Your message"
+					Placeholder="Write your thoughts here..."
+					@bind-Value="message"
+					Required="true" />
+
+		<p class="mt-2 text-sm text-gray-600">Mensaje: @message</p>
+	</div>
+
+
+	<div class="col-span-4">
+		<IUInputDate Label="Select a date"
+					 @bind-Value="selectedDate"
+					 Required="true" />
+
+		<p class="mt-2 text-sm text-gray-600">Fecha seleccionada: @selectedDate?.ToString("yyyy-MM-dd")</p>
+
+	</div>
+
+
+	<div class="col-span-4">
+		<IUInputTime Label="Select a time"
+					 @bind-Value="selectedTime"
+					 Required="true" />
+
+		<p class="mt-2 text-sm text-gray-600">Hora seleccionada: @selectedTime?.ToString("HH:mm")</p>
+
+	</div>
+
+
+	<div class="col-span-4">
+		<IUInputCheckbox Label="Accept terms and conditions"
+						 @bind-Value="isChecked"
+						 Required="true" />
+
+		<p class="mt-2 text-sm text-gray-600">Checkbox está marcado: @isChecked</p>
+	</div>
+
+	<div class="col-span-4">
+		<IUInputRadio Label="Option 1"
+					  Name="group1"
+					  Value="1"
+					  @bind-IsSelected="isSelected1" />
+
+		<IUInputRadio Label="Option 2"
+					  Name="group1"
+					  Value="2"
+					  @bind-IsSelected="isSelected2" />
+
+		<p class="mt-2 text-sm text-gray-600">Option 1 seleccionado: @isSelected1</p>
+		<p class="mt-2 text-sm text-gray-600">Option 2 seleccionado: @isSelected2</p>
+	</div>
 </div>
 
 @code {
-	[Parameter] public string Label { get; set; } = "Textarea";
-	[Parameter] public string Placeholder { get; set; } = "Please enter text here...";
-	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString();
-	[Parameter] public string TextAreaClass { get; set; } = "block p-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500";
-	[Parameter] public int Rows { get; set; } = 3;
-	[Parameter] public bool Required { get; set; } = false;
-	[Parameter] public bool Readonly { get; set; } = false;
+	private string companyName = "";
+	private long price;
+	private string selectedCountryCode = "";
+	private string message = "";
+	private DateTime? selectedDate;
+	private TimeSpan? selectedTime;
+	private bool isChecked = false;  // Valor inicial del checkbox
+	private bool isSelected1 = false;
+	private bool isSelected2 = false;
 
-	[Parameter] public string Value { get; set; }
-	[Parameter] public EventCallback<string> ValueChanged { get; set; }
 
-	private async Task OnChange(ChangeEventArgs e)
+	private List<CountryModel> countryList = new()
 	{
-		var newValue = e.Value?.ToString();
-		if (newValue != Value)
-		{
-			Value = newValue;
-			await ValueChanged.InvokeAsync(Value);
-		}
+		new CountryModel { Code = "US", Name = "United States" },
+		new CountryModel { Code = "CA", Name = "Canada" },
+		new CountryModel { Code = "FR", Name = "France" },
+		new CountryModel { Code = "DE", Name = "Germany" }
+	};
+
+	public class CountryModel
+	{
+		public string Code { get; set; }
+		public string Name { get; set; }
 	}
 }

@@ -4,7 +4,7 @@
 			  class="@TextAreaClass"
 			  placeholder="@Placeholder"
 			  rows="@Rows"
-			  @oninput="OnInput"
+			  @onchange="OnChange"
 			  value="@Value"
 			  required="@Required"
 			  readonly="@Readonly"></textarea>
@@ -22,7 +22,7 @@
 	[Parameter] public string Value { get; set; }
 	[Parameter] public EventCallback<string> ValueChanged { get; set; }
 
-	private async Task OnInput(ChangeEventArgs e)
+	private async Task OnChange(ChangeEventArgs e)
 	{
 		var newValue = e.Value?.ToString();
 		if (newValue != Value)
