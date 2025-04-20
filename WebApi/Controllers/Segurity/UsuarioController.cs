@@ -2,6 +2,7 @@
 using Application.Features.Segurity.Users.Queries;
 using Domain.DTOs.Segurity;
 using Domain.DTOs.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.Segurity;
@@ -27,6 +28,7 @@ public class UsuarioController : MainController
         return Ok(await Mediator.Send(new GetUserByIdQuery() { Id = idUser }));
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Create(UsuarioDTO usuarioDTO)
     {
