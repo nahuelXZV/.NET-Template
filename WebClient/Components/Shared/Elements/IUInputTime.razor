@@ -5,7 +5,7 @@
 		   class="@InputClass"
 		   placeholder="@Placeholder"
 		   value="@FormattedValue"
-		   @oninput="OnInput"
+		   @onchange="OnChange"
 		   required="@Required"
 		   readonly="@Readonly" />
 </div>
@@ -23,7 +23,7 @@
 
 	private string FormattedValue => Value?.ToString(@"hh\:mm");
 
-	private async Task OnInput(ChangeEventArgs e)
+	private async Task OnChange(ChangeEventArgs e)
 	{
 		if (TimeSpan.TryParse(e.Value?.ToString(), out var newValue))
 		{

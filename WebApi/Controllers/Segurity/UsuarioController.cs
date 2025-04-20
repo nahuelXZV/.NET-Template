@@ -28,7 +28,6 @@ public class UsuarioController : MainController
         return Ok(await Mediator.Send(new GetUserByIdQuery() { Id = idUser }));
     }
 
-    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Create(UsuarioDTO usuarioDTO)
     {

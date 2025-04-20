@@ -59,7 +59,7 @@ public partial class UsuarioCreateComponent
 
         try
         {
-            if (!ModificarContraseña) Usuario.Password = string.Empty;
+            if (!ModificarContraseña && Usuario.Id != 0) Usuario.Password = string.Empty;
 
             if (Usuario.Id != 0)
             {

@@ -5,7 +5,7 @@
 		   class="@InputClass"
 		   placeholder="@Placeholder"
 		   value="@Value"
-		   @oninput="OnInput"
+		   @onchange="OnChange"
 		   required="@Required"
 		   readonly="@Readonly" />
 </div>
@@ -21,7 +21,7 @@
 	[Parameter] public long Value { get; set; }
 	[Parameter] public EventCallback<long> ValueChanged { get; set; }
 
-	private async Task OnInput(ChangeEventArgs e)
+	private async Task OnChange(ChangeEventArgs e)
 	{
 		if (long.TryParse(e?.Value?.ToString(), out var newValue))
 		{
